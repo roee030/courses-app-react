@@ -7,7 +7,7 @@ export default function Courses() {
             Hello from Courses page
             <Link to="/">
                     Home page
-                </Link>
+            </Link>
         </div>
     )
 }
