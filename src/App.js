@@ -5,10 +5,10 @@ import Home from './pages/Home';
 import Courses from './pages/Courses'
 function App() {
   return (
-      <div>
+      <Router>
       <Route exact path="/" component={Home}/>
       <Route exact path="/courses" component={Courses}/>
-  </div>
+  </Router>
   );
 }
 
