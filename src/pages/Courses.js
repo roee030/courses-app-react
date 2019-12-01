@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import CourseShow from '../components/courses/CourseShow';
 
 export default function Courses() {
     return (
@@ -8,6 +9,7 @@ export default function Courses() {
             <Link to="/">
                     Home page
             </Link>
+            <CourseShow/>
         </div>
     )
 }

@@ -11,21 +11,21 @@ export default class Navbar extends Component {
   };
   render() {
     return (
-      <nav class="navbar">
-    <label class="navbar-toggle" id="js-navbar-toggle" for="chkToggle">
-      <i class="fa fa-bars"></i>
+      <nav className="navbar">
+    <label className="navbar-toggle" id="js-navbar-toggle" for="chkToggle">
+      <i className="fa fa-bars"></i>
         </label>
-    <Link to="/" class="logo">logo</Link>
+    <Link to="/" className="logo">logo</Link>
     <input type="checkbox" id="chkToggle"></input>
-    <ul class="main-nav" id="js-menu">
+    <ul className="main-nav" id="js-menu">
       <li>
-      <Link to="/" class="nav-links" onClick={this.handleToggle}>Home</Link>
+      <Link to="/" className="nav-links" onClick={this.handleToggle}>Home</Link>
       </li>
       <li>
-      <Link to="/courses" class="nav-links">My Courses</Link>
+      <Link to="/courses" className="nav-links">My Courses</Link>
       </li>
       <li>
-      <Link to="/user" class="nav-links">Personal page</Link>
+      <Link to="/user" className="nav-links">Personal page</Link>
       </li>
   
     </ul>
