@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 import Home from './pages/Home';
 import Courses from './pages/Courses'
 import Navbar from './components/Navbar'
+import Users from './pages/PersonalPage'
 import './App.css'
 function App() {
   return (
       <>
       <Navbar/>
-      <h1>Roee</h1>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/courses" component={Courses}/>
+        <Route path="/user" component={Users}/>
       </Switch>
       </>
   );

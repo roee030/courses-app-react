@@ -15,7 +15,7 @@ export default class Navbar extends Component {
     <label class="navbar-toggle" id="js-navbar-toggle" for="chkToggle">
       <i class="fa fa-bars"></i>
         </label>
-    <a href="#" class="logo">logo</a>
+    <Link to="/" class="logo">logo</Link>
     <input type="checkbox" id="chkToggle"></input>
     <ul class="main-nav" id="js-menu">
       <li>
@@ -25,7 +25,7 @@ export default class Navbar extends Component {
       <Link to="/courses" class="nav-links">My Courses</Link>
       </li>
       <li>
-        <a href="#" class="nav-links">Personal page</a>
+      <Link to="/user" class="nav-links">Personal page</Link>
       </li>
   
     </ul>

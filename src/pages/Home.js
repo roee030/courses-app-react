@@ -10,6 +10,7 @@ export default function Home() {
             <Link to="/courses">
                     Our Courses
             </Link>
+            
         </div>
     )
 }
