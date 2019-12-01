@@ -11,30 +11,25 @@ export default class Navbar extends Component {
   };
   render() {
     return (
-      <nav className="navbar">
-        <div className="nav-center">
-          <div className="nav-header">
-            <Link to="/">
-            </Link>
-            <button
-              type="button"
-              className="nav-btn"
-              onClick={this.handleToggle}>
-              <FaAlignRight className="nav-icon" />
-            </button>
-          </div>
-          <ul
-            className={this.state.isOpen ? "nav-links show-nav" : "nav-links"}>
-            <li>
-              <Link to="/" onClick={this.handleToggle}>Home</Link>
-            </li>
-            <li>
-              <Link to="/courses" onClick={this.handleToggle}>Courses</Link>
-            </li>
-            
-          </ul>
-        </div>
-      </nav>
+      <nav class="navbar">
+    <label class="navbar-toggle" id="js-navbar-toggle" for="chkToggle">
+      <i class="fa fa-bars"></i>
+        </label>
+    <a href="#" class="logo">logo</a>
+    <input type="checkbox" id="chkToggle"></input>
+    <ul class="main-nav" id="js-menu">
+      <li>
+      <Link to="/" class="nav-links" onClick={this.handleToggle}>Home</Link>
+      </li>
+      <li>
+      <Link to="/courses" class="nav-links">My Courses</Link>
+      </li>
+      <li>
+        <a href="#" class="nav-links">Personal page</a>
+      </li>
+  
+    </ul>
+  </nav>
     );
   }
 }
