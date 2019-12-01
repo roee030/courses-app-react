@@ -1,5 +1,5 @@
 import React from 'react'
-export default function CourseShow() {
+export default function CourseShow(props) {
     const obj = {
         title: "React js full course",
         description: "Master React v16.6.3 and Redux with React Router, Webpack, and Create-React-App. Includes Hooks!",
@@ -10,13 +10,23 @@ export default function CourseShow() {
         maxWidth: "80vw",
         marginLeft: "10vw",
         margin: "auto",
-        textAlign: "center"
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#dddddd"
     }
     return (
         <div className="card" style={cardStyle}>
-            <img src={obj.img} alt={"logo"} width="30px" height="30px"/>
-            {obj.title}
-            {obj.description}
-        </div>
+            <div className="photo">
+                <img src={obj.img} alt={"logo"} width="30px" height="30px"/>
+            </div>
+            <div className = "header">
+                {obj.title}
+            </div>
+            <div class="content">
+                    {obj.description}
+            </div>
+            </div>
+
     )
 }
