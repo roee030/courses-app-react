@@ -51,7 +51,7 @@ render() {
           </MDBNavbarNav>
           <MDBNavbarNav right>
           <MDBNavItem>
-          <MDBNavLink to="#!">Personal Info</MDBNavLink>
+          <MDBNavLink to="#!">My Courses</MDBNavLink>
         </MDBNavItem>
             <MDBNavItem>
               <MDBNavLink to="#!">Personal Info</MDBNavLink>
