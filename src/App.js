@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Courses from './pages/Courses'
 import Navbar from './components/Navbar'
 import Signin from './pages/Sign-in'
+import Register from './pages/Register'
 import './App.css'
 import {
   MDBContainer,
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/" component={Home}/>
         <Route path="/courses" component={Courses}/>
         <Route path="/sign-in" component={Signin}/>
+        <Route path="/register" component={Register}/>
       </Switch>
       </MDBContainer>
       <Footer/>
