@@ -6,6 +6,7 @@ import Courses from './pages/Courses'
 import Navbar from './components/Navbar'
 import Signin from './pages/Sign-in'
 import Register from './pages/Register'
+import ErrorPage from './components/ErrorPage'
 import './App.css'
 import {
   MDBContainer,
@@ -21,6 +22,8 @@ function App() {
         <Route path="/courses" component={Courses}/>
         <Route path="/sign-in" component={Signin}/>
         <Route path="/register" component={Register}/>
+        <Route component={ErrorPage}/>
+       {/* <Route exact path="/courses/:id" component={}/>*/}
       </Switch>
       </MDBContainer>
       <Footer/>
