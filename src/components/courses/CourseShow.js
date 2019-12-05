@@ -18,13 +18,13 @@ export default function CourseShow(props) {
     return (
         <div className="card" style={cardStyle}>
             <div className="photo">
-                <img src={obj.img} alt={"logo"} width="30px" height="30px"/>
+                <img src={props.img} alt={"logo"} width="30px" height="30px"/>
             </div>
             <div className = "header">
-                {obj.title}
+                {props.title}
             </div>
             <div class="content">
-                    {obj.description}
+                    {props.description}
             </div>
             </div>
 
