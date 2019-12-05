@@ -1,10 +1,10 @@
 import React from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol,MDBRow } from 'mdbreact';
 
 const Card = (props) => {
   return (
     <MDBCol>
-      <MDBCard style={{ width: "15rem" , height: "23rem" }}>
+      <MDBCard style={{ width: "15rem" , height: "23rem" , marginTop: "20px" }}>
         <MDBCardImage className="img-fluid" src={props.img} waves />
         <MDBCardBody>
           <MDBCardTitle>{props.title}</MDBCardTitle>
