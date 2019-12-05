@@ -9,6 +9,7 @@ import './App.css'
 import {
   MDBContainer,
 } from 'mdbreact';
+import Footer from './components/Footer'
 function App() {
   return (
       <>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/user" component={Users}/>
       </Switch>
       </MDBContainer>
+      <Footer/>
       </>
   );
 }
