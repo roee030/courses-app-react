@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Home from './pages/Home';
 import Courses from './pages/Courses'
 import Navbar from './components/Navbar'
-import Users from './pages/PersonalPage'
+import Signin from './pages/Sign-in'
 import './App.css'
 import {
   MDBContainer,
@@ -18,7 +18,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/courses" component={Courses}/>
-        <Route path="/user" component={Users}/>
+        <Route path="/sign-in" component={Signin}/>
       </Switch>
       </MDBContainer>
       <Footer/>

@@ -1,9 +1,10 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
-
+import { Link } from "react-router-dom";
+import './Sign-in.css'
 const FormPage = () => {
   return (
-    <MDBContainer>
+    <div className="login-form">
       <MDBRow>
         <MDBCol md="6">
           <form>
@@ -13,7 +14,6 @@ const FormPage = () => {
                 label="Type your id"
                 icon="id-card"
                 group
-                type="email"
                 validate
                 error="wrong"
                 success="right"
@@ -27,12 +27,19 @@ const FormPage = () => {
               />
             </div>
             <div className="text-center">
-              <MDBBtn>Login</MDBBtn>
-            </div>
+              <MDBBtn className="login-btn">Login</MDBBtn>
+              </div>
+              <div className="text-center">
+              <Link  to="/register" >
+                Create an account
+            </Link>
+              </div>
+              
+            
           </form>
         </MDBCol>
       </MDBRow>
-    </MDBContainer>
+    </div>
   );
 };
 

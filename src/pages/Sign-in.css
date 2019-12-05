@@ -1,0 +1,10 @@
+.login-form
+{
+    padding-top: 50px;
+    margin-left: 310px;
+    height: 60vh;
+}
+.login-btn
+{
+    background-image: linear-gradient(to left, #D53D96  , #7A2A90);
+}
