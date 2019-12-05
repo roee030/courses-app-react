@@ -1,12 +1,14 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import './Register.css'
+import { Link } from "react-router-dom";
 
 const FormPage = () => {
   return (
     <MDBContainer>
       <MDBRow>
         <MDBCol md="6">
-          <form>
+          <form className="register-form">
             <p className="h5 text-center mb-4">Sign up</p>
             <div className="grey-text">
               <MDBInput
@@ -45,8 +47,13 @@ const FormPage = () => {
               />
             </div>
             <div className="text-center">
-              <MDBBtn color="primary">Register</MDBBtn>
+              <MDBBtn className="register-btn">Register</MDBBtn>
             </div>
+            <div className="text-center">
+              <Link  to="/sign-in" >
+                I have a user, let me Sign-in
+            </Link>
+              </div>
           </form>
         </MDBCol>
       </MDBRow>

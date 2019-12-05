@@ -1,0 +1,11 @@
+.register-form
+{
+    
+    padding-top: 50px;
+    margin-left: 330px;
+    height: 70vh;
+}
+.register-btn
+{
+    background-image: linear-gradient(to left, #D53D96  , #7A2A90);
+}

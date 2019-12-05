@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import './Sign-in.css'
 const FormPage = () => {
   return (
-    <div className="login-form">
+    <div >
       <MDBRow>
         <MDBCol md="6">
-          <form>
+          <form className="login-form">
             <p className="h4 text-center mb-4">Sign in</p>
             <div className="grey-text">
               <MDBInput
