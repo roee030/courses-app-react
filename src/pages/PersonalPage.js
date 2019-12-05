@@ -1,68 +1,39 @@
-import React, { Component } from 'react'
-import './PersonalPage.css'
-export default class LoginBox extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          username: '',
-          password:'',
-          users: ''
-        };
-    }
-    submitLogin(e) {
-      e.preventDefault();
-      console.log(this.state);
-    }
-    onChangeUserName(event) {
-      this.setState({
-        username:event.target.value
-      });
-  }
-  onChangePassword(event) {
-    this.setState({
-      password:event.target.value
-    });
-}
-  render() {
- 
-    
-    return (
-      <div className="inner-container">
-        <div className="header">
-          Login
-        </div>
-        <div className="box">
+import React from "react";
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 
-          <div className="input-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              className="login-input"
-              placeholder="Username"
-              onChange={this.onChangeUserName.bind(this)}
+const FormPage = () => {
+  return (
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol md="6">
+          <form>
+            <p className="h4 text-center mb-4">Sign in</p>
+            <div className="grey-text">
+              <MDBInput
+                label="Type your id"
+                icon="id-card"
+                group
+                type="email"
+                validate
+                error="wrong"
+                success="right"
               />
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="login-input"
-              placeholder="Password"
-              onChange={this.onChangePassword.bind(this)}
+              <MDBInput
+                label="Type your password"
+                icon="lock"
+                group
+                type="password"
+                validate
               />
-          </div>
+            </div>
+            <div className="text-center">
+              <MDBBtn>Login</MDBBtn>
+            </div>
+          </form>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
+  );
+};
 
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={this
-            .submitLogin
-            .bind(this)}>Login</button>
-        </div>
-      </div>
-    );
-    }
-}
+export default FormPage;
