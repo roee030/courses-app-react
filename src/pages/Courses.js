@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import CourseShow from '../components/courses/CourseShow';
 export default function Courses() {
+
+    
     const obj =[
         {
             title: "React js full course",
@@ -20,14 +22,22 @@ export default function Courses() {
            console.log(i)
            return <CourseShow title={i.title} description={i.description} img={i.img} />
        }
-      
+ 
    }
+   
     return (
         <div>
             Hello from Courses page
             <Link to="/">
                     Home page
             </Link>
+            {
+                obj.map((item,i) => (
+                    <CourseShow title={item.title} description={item.description} img={item.img}/>
+                ))
+
+
+            }
         </div>
     )
 }
