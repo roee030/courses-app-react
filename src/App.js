@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Signin from './pages/Sign-in'
 import Register from './pages/Register'
 import ErrorPage from './components/ErrorPage'
+import SingleCourse from './pages/SingleCourse'
 import './App.css'
 import {
   MDBContainer,
@@ -19,11 +20,12 @@ function App() {
       <MDBContainer>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/courses" component={Courses}/>
+        <Route exact path="/courses" component={Courses}/>
+        <Route exact path="/courses/:id" component={SingleCourse}/>
         <Route path="/sign-in" component={Signin}/>
         <Route path="/register" component={Register}/>
+
         <Route component={ErrorPage}/>
-       {/* <Route exact path="/courses/:id" component={}/>*/}
       </Switch>
       </MDBContainer>
       <Footer/>
