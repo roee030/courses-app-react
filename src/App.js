@@ -17,7 +17,9 @@ function App() {
   return (
       <>
       <Navbar/>
+
       <MDBContainer>
+      
       <Switch>
 
         <Route exact path="/" component={Home}/>
