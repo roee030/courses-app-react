@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
 MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
@@ -23,8 +25,10 @@ render() {
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            <MDBNavItem >
-              <MDBNavLink to="#!">Home</MDBNavLink>
+            <MDBNavItem   >
+              <MDBNavLink to="/">
+              Home
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBDropdown>
