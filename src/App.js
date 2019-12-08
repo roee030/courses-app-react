@@ -19,12 +19,12 @@ function App() {
       <Navbar/>
       <MDBContainer>
       <Switch>
+
         <Route exact path="/" component={Home}/>
         <Route exact path="/courses" component={Courses}/>
         <Route exact path="/courses/:id" component={SingleCourse}/>
         <Route path="/sign-in" component={Signin}/>
         <Route path="/register" component={Register}/>
-
         <Route component={ErrorPage}/>
       </Switch>
       </MDBContainer>
