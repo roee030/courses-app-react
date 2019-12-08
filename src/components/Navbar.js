@@ -19,7 +19,6 @@ handleClick() {
 
 render() {
   return (
-    <Router>
       <MDBNavbar className="Navbar"  dark expand="md" style={{backgroundImage: "linear-gradient(" + "to left, #D53D96  , #7A2A90"+" )"}}>
         <MDBNavbarBrand>
           <strong className="white-text">Navbar</strong>
@@ -64,7 +63,6 @@ render() {
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
-    </Router>
     );
   }
 }

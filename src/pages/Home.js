@@ -6,6 +6,7 @@ export default function Home() {
 
     return (
         <>
+            
             Hello from Home page
             <div className="bg"></div>
             <Link to="/courses">

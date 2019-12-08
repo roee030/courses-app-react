@@ -16,10 +16,10 @@ import Footer from './components/Footer'
 function App() {
   return (
       <>
-      <Navbar/>
+      
 
       <MDBContainer>
-      
+      <Navbar/>
       <Switch>
 
         <Route exact path="/" component={Home}/>
@@ -29,8 +29,9 @@ function App() {
         <Route path="/register" component={Register}/>
         <Route component={ErrorPage}/>
       </Switch>
-      </MDBContainer>
       <Footer/>
+      </MDBContainer>
+      
       </>
   );
 }
