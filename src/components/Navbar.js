@@ -37,8 +37,6 @@ render() {
               Courses
               </MDBNavLink>
             </MDBNavItem>
-            
-            
             <MDBNavItem>
             <MDBFormInline waves>
               <div className="md-form my-0">
@@ -52,7 +50,7 @@ render() {
           <MDBNavLink to="#!">My Courses</MDBNavLink>
         </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#!">Personal Info</MDBNavLink>
+              <MDBNavLink to="/log-in">Log-in</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
