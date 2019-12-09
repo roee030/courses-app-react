@@ -8,7 +8,7 @@ MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 class NavbarPage extends Component {
 state = {
   isOpen: false,
-  isConnect: null
+  isConnect: false
 };
 
 toggleCollapse = () => {
@@ -17,6 +17,29 @@ toggleCollapse = () => {
 handleClick() {
   ;
 }
+
+ifConnect = () => {
+  if (!this.state.isConnect)
+  {
+    return (<MDBNavItem>
+    <MDBNavLink to="/log-in">Log-in</MDBNavLink>
+  </MDBNavItem>)
+  }
+  else {
+    return (
+      <>
+    <MDBNavItem>
+    <MDBNavLink to="/">My Courses</MDBNavLink>
+    </MDBNavItem>
+    <MDBNavItem>
+    <MDBNavLink to="/">My Courses</MDBNavLink>
+    </MDBNavItem>
+    </>
+  
+    )
+  }
+}
+
 
 render() {
   return (
@@ -49,10 +72,10 @@ render() {
           <MDBNavItem>
           <MDBNavLink to="#!">My Courses</MDBNavLink>
         </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="/log-in">Log-in</MDBNavLink>
-            </MDBNavItem>
-          </MDBNavbarNav>
+          <MDBNavItem>
+            <MDBNavLink to="/log-in">Log-in</MDBNavLink>
+          </MDBNavItem>
+        </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
     );
