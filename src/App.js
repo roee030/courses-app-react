@@ -17,9 +17,8 @@ function App() {
   return (
       <>
       
-
-      <MDBContainer>
       <Navbar/>
+      <MDBContainer fluid>      
       <Switch>
 
         <Route exact path="/" component={Home}/>
@@ -29,9 +28,9 @@ function App() {
         <Route path="/register" component={Register}/>
         <Route component={ErrorPage}/>
       </Switch>
-      <Footer/>
-      </MDBContainer>
       
+      </MDBContainer>
+      <Footer/>
       </>
   );
 }

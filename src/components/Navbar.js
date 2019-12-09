@@ -7,7 +7,8 @@ MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
 class NavbarPage extends Component {
 state = {
-  isOpen: false
+  isOpen: false,
+  isConnect: null
 };
 
 toggleCollapse = () => {
@@ -31,19 +32,12 @@ render() {
               Home
               </MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Courses</span>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
+            <MDBNavItem >
+              <MDBNavLink to="/courses">
+              Courses
+              </MDBNavLink>
             </MDBNavItem>
+            
             
             <MDBNavItem>
             <MDBFormInline waves>
