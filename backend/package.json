@@ -1,0 +1,31 @@
+{
+  "name": "bhd15_courses_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test.js | tap-spec",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asafEli/BHD15_courses_backend.git"
+  },
+  "author": "AssafEli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asafEli/BHD15_courses_backend/issues"
+  },
+  "homepage": "https://github.com/asafEli/BHD15_courses_backend#readme",
+  "devDependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-register": "^6.26.0"
+  },
+  "dependencies": {
+    "@babel/register": "^7.5.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.3.5"
+  }
+}
