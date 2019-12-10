@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/backend/node_modules
+/backend/BHD15_courses_backend/
 /.pnp
 .pnp.js
 
