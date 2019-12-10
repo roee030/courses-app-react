@@ -31,10 +31,6 @@ export default function Courses() {
    
     return (
         <div>
-            Hello from Courses page
-            <Link to="/">
-                    Home page
-            </Link>
             <div className="grid-container">
             {
                 obj.map((item,i) => (

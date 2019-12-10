@@ -55,11 +55,6 @@ render() {
               Home
               </MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem >
-              <MDBNavLink to="/courses">
-              Courses
-              </MDBNavLink>
-            </MDBNavItem>
             <MDBNavItem>
             <MDBFormInline waves>
               <div className="md-form my-0">
