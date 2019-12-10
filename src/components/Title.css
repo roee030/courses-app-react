@@ -1,0 +1,16 @@
+.section-title {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .section-title h5 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+  }
+  .section-title div {
+    width: 5rem;
+    height: 5px;
+    margin: 0 auto;
+    background: linear-gradient(to left, #D53D96  , #7A2A90 );
+  }

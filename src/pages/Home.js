@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import './Home.css'
 import Courses from './Courses';
 import SearchBar from '../components/SearchBar';
+import Title from '../components/Title';
 export default function Home() {
 
     return (
@@ -11,6 +12,7 @@ export default function Home() {
             
             
             <div className="bg"></div>
+            <Title title={"Search for Course"}/>
             <SearchBar/>
             <Courses/>
             </>

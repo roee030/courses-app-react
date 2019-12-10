@@ -2,4 +2,15 @@
     border: 1px solid #bdbdbd;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
+   
+  }
+#basic-text1{
+  background: linear-gradient(to left, #D53D96  , #7A2A90 );
+}
+
+  .SearchBar
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
