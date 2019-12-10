@@ -1,17 +1,18 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { Link } from "react-router-dom";
+import Title from '../components/Title';
 import './Sign-in.css'
 const FormPage = () => {
   return (
-    <div >
+    <MDBContainer className="sign-in-component">
       <MDBRow>
         <MDBCol md="6">
           <form className="login-form">
-            <p className="h4 text-center mb-4">Sign in</p>
+            <Title title="Sign in"/>
             <div className="grey-text">
               <MDBInput
-                label="Type your id"
+                label="Type your personal number"
                 icon="id-card"
                 group
                 validate
@@ -39,7 +40,7 @@ const FormPage = () => {
           </form>
         </MDBCol>
       </MDBRow>
-    </div>
+    </MDBContainer>
   );
 };
 

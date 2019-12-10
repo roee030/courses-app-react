@@ -1,9 +1,19 @@
+.register-component
+{
+    padding:10px;
+}
+.grey-text
+{
+    width: 30vw;
+}
 .register-form
 {
-    
-    padding-top: 50px;
-    margin-left: 330px;
-    height: 70vh;
+    display: flex;
+    flex-direction:column;
+    width: 70vw;
+    height: 1000px;
+    align-items: center;
+    justify-content: center;
 }
 .register-btn
 {

@@ -1,15 +1,17 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import Title from '../components/Title';
+
 import './Register.css'
 import { Link } from "react-router-dom";
 
 const FormPage = () => {
   return (
-    <MDBContainer>
+    <MDBContainer className="register-component">
       <MDBRow>
         <MDBCol md="6">
           <form className="register-form">
-            <p className="h5 text-center mb-4">Sign up</p>
+          <Title title="Register"/>
             <div className="grey-text">
               <MDBInput
                 label="Your name"
@@ -21,7 +23,7 @@ const FormPage = () => {
                 success="right"
               />
               <MDBInput
-                label="Your email"
+                label="Your id number"
                 icon="envelope"
                 group
                 type="email"
@@ -30,7 +32,70 @@ const FormPage = () => {
                 success="right"
               />
               <MDBInput
-                label="Confirm your email"
+                label="Confirm your id number"
+                icon="exclamation-triangle"
+                group
+                type="text"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Your personal number"
+                icon="envelope"
+                group
+                type="email"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Confirm your personal number"
+                icon="exclamation-triangle"
+                group
+                type="text"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Your Hoger number"
+                icon="envelope"
+                group
+                type="email"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Confirm your Hoger number"
+                icon="exclamation-triangle"
+                group
+                type="text"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Phone number"
+                icon="exclamation-triangle"
+                group
+                type="text"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="Phone number"
+                icon="exclamation-triangle"
+                group
+                type="text"
+                validate
+                error="wrong"
+                success="right"
+              />
+              <MDBInput
+                label="BirthDate"
                 icon="exclamation-triangle"
                 group
                 type="text"
