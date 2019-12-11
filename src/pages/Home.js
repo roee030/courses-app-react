@@ -10,11 +10,7 @@ export default function Home() {
     
     
           return (
-<<<<<<< HEAD
-            <>
-=======
         <div>
->>>>>>> assaf_test_branch
             <div className="bg"></div>
             <Title title={"Search for Course"}/>
             <SearchBar/>
