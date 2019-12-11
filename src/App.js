@@ -13,6 +13,7 @@ import {
   MDBContainer,
 } from 'mdbreact';
 import Footer from './components/Footer'
+import ResetPassword from './pages/ResetPassword'
 function App() {
   return (
       <>
@@ -26,6 +27,8 @@ function App() {
         <Route exact path="/courses/:id" component={SingleCourse}/>
         <Route path="/log-in" component={Signin}/>
         <Route path="/register" component={Register}/>
+        <Route path="/resetpassword" component={ResetPassword}/>
+
         <Route component={ErrorPage}/>
       </Switch>
       

@@ -36,7 +36,7 @@ const FormPage = () => {
             </Link>
               </div>
               <div className="text-center">
-              <Link  to="/register" >
+              <Link  to="/resetpassword" >
                 Lost your password? click here to reset your password.
             </Link>
               </div>
