@@ -40,12 +40,11 @@ export default function Home() {
     }
     
           return (
-        <>
+        <div>
             <div className="bg"></div>
             <Title title={"Search for Course"}/>
             <SearchBar/>
-            {reqFunc()} 
             <Courses/>
-            </>
+        </div>
     );
 }
