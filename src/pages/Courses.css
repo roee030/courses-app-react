@@ -1,6 +1,7 @@
 .grid-container {
     display: grid;
-    grid-template-columns:  1fr 1fr 1fr ;
+    grid-template-columns:  1fr 1fr 1fr 1fr ;
+    justify-items: center;
     border: 5px solid;
     border-image-source: linear-gradient(to left, #D53D96  , #7A2A90 );
     border-image-slice: 1; 

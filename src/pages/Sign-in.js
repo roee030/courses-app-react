@@ -32,10 +32,14 @@ const FormPage = () => {
               </div>
               <div className="text-center">
               <Link  to="/register" >
-                Create an account
+                Create an account.
             </Link>
               </div>
-              
+              <div className="text-center">
+              <Link  to="/register" >
+                Lost your password? click here to reset your password.
+            </Link>
+              </div>
             
           </form>
         </MDBCol>

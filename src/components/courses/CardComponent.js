@@ -4,7 +4,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 const Card = (props) => {
   return (
     <MDBCol>
-      <MDBCard style={{ width: "15rem" , height: "23rem" , marginTop: "20px", border: "5px solid #bbb" }}>
+      <MDBCard style={{ width: "20vw" , height: "50%" , border: "2px solid #444444" }}>
         <MDBCardImage className="img-fluid" src={props.img} waves />
         <MDBCardBody>
           <MDBCardTitle>{props.title}</MDBCardTitle>

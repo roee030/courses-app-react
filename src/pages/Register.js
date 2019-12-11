@@ -110,6 +110,13 @@ const FormPage = () => {
                 type="password"
                 validate
               />
+              <MDBInput
+                label="Confirm your password"
+                icon="lock"
+                group
+                type="password"
+                validate
+              />
             </div>
             <div className="text-center">
               <MDBBtn className="register-btn">Register</MDBBtn>
