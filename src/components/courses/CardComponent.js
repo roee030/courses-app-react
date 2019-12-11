@@ -7,7 +7,7 @@ const Card = (props) => {
       <MDBCard style={{ width: "20vw" , height: "50%" , border: "2px solid #444444" }}>
         <MDBCardImage className="img-fluid" src={props.img} waves />
         <MDBCardBody>
-          <MDBCardTitle>{props.title}</MDBCardTitle>
+          <MDBCardTitle>{props.name}</MDBCardTitle>
           <MDBCardText>
             {props.description}
           </MDBCardText>
