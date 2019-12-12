@@ -1,11 +1,19 @@
-import React from 'react'
-import { MDBContainer, MDBAlert } from 'mdbreact';
+import React, { Component } from "react";
+import { MDBNotification } from "mdbreact";
 
-export default function Alert(props) {
+class Notification extends Component {
+  render() {
     return (
-        <MDBAlert color={props.color} dismiss>
-        {props.msg}
-        </MDBAlert>
-        
-    )
+      <MDBNotification
+        show
+        fade
+        iconClassName="text-primary"
+        title="Bootstrap"
+        message="Hello, world! This is a toast message."
+        text="11 mins ago"
+      />
+    );
+  }
 }
+
+export default Notification;

@@ -72,7 +72,7 @@ export default class Register extends Component {
       alert("all good")
     }
     else{
-      this.setState({errorMsg})
+  
     }
 
 
@@ -102,8 +102,8 @@ export default class Register extends Component {
                 validate
                 error="wrong"
                 success="right"
-                onChange={this.changeHandler}
-              />
+                onChange={this.changeHandler}/>
+                
               <MDBInput
                 label="Your id number"
                 name="idNumber"
