@@ -4,6 +4,7 @@ import { MDBNavbar, MDBBtn } from "mdbreact";
 function Header(props) {
     const isLoggedIn = props.isLoggedIn;
     const onLoginClickFunc = props.onLoginClick;
+    const showRegisterPopUp = props.showRegisterPopUp;
     const onSignupClickFunc = props.onSignupClick;
     const onMyAccountClickFunc = props.onMyAccountClick;
 
@@ -17,13 +18,13 @@ function Header(props) {
 
     return (
         <MDBNavbar className="Navbar"  dark expand="md" style={{backgroundImage: "linear-gradient(" + "to left, #D53D96  , #7A2A90"+" )"}}>
-         {addButtons(isLoggedIn, onLoginClickFunc)}   
+         {addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp)}   
 
         </MDBNavbar>
     )
 }
 
-function addButtons(isLoggedIn, onLoginClickFunc) {
+function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp) {
     if (isLoggedIn) {
         return (
             <div>My Account</div>
@@ -33,7 +34,7 @@ function addButtons(isLoggedIn, onLoginClickFunc) {
     return (
         <div>
             <MDBBtn onClick={() => { onLoginClickFunc(!isLoggedIn)}}>Log-in</MDBBtn>
-            <MDBBtn>/Sign-up</MDBBtn>
+            <MDBBtn onClick={() => {onSignupClickFunc(!showRegisterPopUp)}}>Sign-up</MDBBtn>
         </div>
         
     )

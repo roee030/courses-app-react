@@ -23,8 +23,9 @@ export default function Home() {
 
     return (
         <div>
-            <Header isLoggedIn={isLoggedIn} onLoginClick={setShowLoginPopUp}/>
-            {renderPopUp(showLoginPopUp)}
+            <Header isLoggedIn={isLoggedIn} onLoginClick={setShowLoginPopUp}
+            onSignupClick={setShowRegisterPopUp} showRegisterPopUp={showRegisterPopUp}/>
+            {renderPopUp(user,setUser,showLoginPopUp,showRegisterPopUp)}
             <div className="bg"></div>
                 <Title title={"Search for Course"}/>
                 <SearchBar onChange={searchString => setQuery(searchString)}/>
@@ -39,14 +40,16 @@ function checkLoggedIn() {
     const isLoggedIn = serverApi.isLoggedIn();
 }
 
-function renderPopUp(showPopUp = false) {
-    console.log('asasasasasas');
-    console.log(showPopUp);
+function renderPopUp(user, setUser, showLoginPopUp, showRegisterPopUp) {
+    if (showLoginPopUp === true ) {
+        return (
+            <PopUp type='login' setUser={setUser}/>
+        )
+    }
+    else if (showRegisterPopUp === true ) {
+        return (
+            <PopUp type='register' />
+        )
+    }
     
-    if (!showPopUp)
-        return;
-
-    return (
-        <PopUp text='Close Me' />
-    )
 }
