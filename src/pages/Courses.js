@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import CourseShow from '../components/courses/CourseShow';
-import Card from '../components/courses/CardComponent'
+import Card from '../components/courses/CourseCard'
 import './Courses.css'
 
 const placeHolderData =[{

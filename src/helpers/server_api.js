@@ -15,6 +15,14 @@ export async function get(serverModule, qs, callback) {
     request('get', serverModule, qs, callback);
 }
 
+export function logOut() {
+    accesToken = null;
+}
+
+export function isLoggedIn() {
+    return accesToken;   
+}
+
 async function request(type, serverModule, args, callback) {
     try {
         const url = serverUrl + serverModule;
