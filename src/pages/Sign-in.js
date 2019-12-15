@@ -31,14 +31,10 @@ const FormPage = () => {
               <MDBBtn className="login-btn">Login</MDBBtn>
               </div>
               <div className="text-center">
-              <Link  to="/register" >
-                Create an account.
-            </Link>
+             
               </div>
               <div className="text-center">
-              <Link  to="/resetpassword" >
-                Lost your password? click here to reset your password.
-            </Link>
+              
               </div>
             
           </form>
