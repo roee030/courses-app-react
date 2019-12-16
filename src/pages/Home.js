@@ -12,6 +12,7 @@ import * as serverApi from '../helpers/server_api';
 import useSearchEffect from '../hooks/use_search_effect';
 
 export default function Home() {
+    const [popUp, setPopUp] = useState(null);
     const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
     const [showLoginPopUp, setShowLoginPopUp] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,26 +22,12 @@ export default function Home() {
     const [query, setQuery] = useState('');
     const [courses, isLoading] = useSearchEffect('courses', query);
     const [type, setType] = useState('')
-    const renderPopUpObj ={
-        setShowRegisterPopUp: setShowRegisterPopUp,
-        showRegisterPopUp: showRegisterPopUp,
-        user :user,
-        setUser: setUser,
-        showLoginPopUp: showLoginPopUp,
-        setShowLoginPopUp: setShowLoginPopUp,
-        showRessetPasswordPopUp: showRessetPasswordPopUp,
-        setShowRessetPasswordPopUp: setShowRessetPasswordPopUp,
-        setShowRessetPasswordCheckPopUp: setShowRessetPasswordCheckPopUp,
-        showRessetPasswordCheckPopUp: showRessetPasswordCheckPopUp,
-        type: type,
-        setType: setType,
-    }
+   
     return (
         <div>
-            <Header isLoggedIn={isLoggedIn} onLoginClick={setShowLoginPopUp}
-            showLoginPopUp={showLoginPopUp}
-            onSignupClick={setShowRegisterPopUp} showRegisterPopUp={showRegisterPopUp}/>
-            {renderPopUp(renderPopUpObj)}
+            <Header isLoggedIn={isLoggedIn} onBtnClick={PopUp}
+            setPopUpType={(type) => {setPopUp(type)}}/>
+            {renderPopUp(popUp,setPopUp)}
             <div className="bg"></div>
                 <Title title={"Search for Course"}/>
                 <SearchBar onChange={searchString => setQuery(searchString)}/>
@@ -55,22 +42,12 @@ function checkLoggedIn() {
     const isLoggedIn = serverApi.isLoggedIn();
 }
 
-function renderPopUp(obj) {
-    if (obj.showLoginPopUp === true ) {
-        return (
-            <PopUp type={obj.type='login'} setUser={obj.setUser} setType={obj.setType}showLoginPopUp={obj.showLoginPopUp} setShowLoginPopUp={obj.setShowLoginPopUp}/>
-        )
-    }
-    else if (obj.showRegisterPopUp === true ) {
-        return (
-            <PopUp type={obj.type="register"} setType={obj.setType} setShowRegisterPopUp={obj.setShowRegisterPopUp} showRegisterPopUp={obj.showRegisterPopUp}  />
-        )
-    }
-    else if(obj.type === "reset")
-    {
-        return (
-            <PopUp type='reset' setType={obj.setType} />
-        )
-    }
+function renderPopUp(popUp,setPopUp) {
+    if (!popUp)
+        return;
+        
+    return(
+        <PopUp popUp={popUp} setPopUp={setPopUp}/>
+    )
     
 }

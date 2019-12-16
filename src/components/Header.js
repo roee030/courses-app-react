@@ -3,11 +3,9 @@ import { MDBNavbar, MDBBtn } from "mdbreact";
 
 function Header(props) {
     const isLoggedIn = props.isLoggedIn;
-    const onLoginClickFunc = props.onLoginClick;
-    const showRegisterPopUp = props.showRegisterPopUp;
-    const showLoginPopUp = props.showLoginPopUp;
-    const onSignupClickFunc = props.onSignupClick;
-    const onMyAccountClickFunc = props.onMyAccountClick;
+    const onBtnClick = props.popUp;
+    const setPopUpType = props.setPopUpType;
+
 
     // return (
     //     <div key='header'>
@@ -19,13 +17,13 @@ function Header(props) {
 
     return (
         <MDBNavbar className="Navbar"  dark expand="md" style={{backgroundImage: "linear-gradient(" + "to left, #D53D96  , #7A2A90"+" )"}}>
-         {addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp,showLoginPopUp)}   
+         {addButtons(isLoggedIn,setPopUpType)}   
 
         </MDBNavbar>
     )
 }
 
-function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp,showLoginPopUp) {
+function addButtons(isLoggedIn,setPopUpType) {
     if (isLoggedIn) {
         return (
             <div>My Account</div>
@@ -34,8 +32,8 @@ function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterP
 
     return (
         <div>
-            <MDBBtn onClick={() => {onLoginClickFunc(!showLoginPopUp)}}>Log-in</MDBBtn>
-            <MDBBtn onClick={() => {onSignupClickFunc(!showRegisterPopUp)}}>Sign-up</MDBBtn>
+            <MDBBtn onClick={() => {setPopUpType("login")}}>Log-in</MDBBtn>
+            <MDBBtn onClick={() => {setPopUpType("register")}}>Sign-up</MDBBtn>
         </div>
         
     )

@@ -6,23 +6,25 @@ import ResetPassword from '../pages/ResetPassword'
 function PopUp(props) {
     
     
-    switch(props.type)
+    switch(props.popUp)
     {
         case("login"):
         return (
                 <div className='popup'>
                     <div className='popup_inner'>
                         <button type="button" className="close" aria-label="Close">
-                        <span aria-hidden="true" onClick={()=>props.setShowLoginPopUp(!props.showLoginPopUp)}>×</span>
+                        <span aria-hidden="true" onClick={()=>props.setPopUp( null )}>×</span>
                         </button>
                         <Login/>
-                        <div className="text-center">
+                        <div className="text-center" onClick={()=>{
+                            props.setPopUp( "register" )}}>
                             <a >Create an account</a>
                         </div>
-                        <div onClick={()=>{props.setType("reset");
+                        <div onClick={()=>{
+                            props.setPopUp( "reset" )
                             }
                             }className="text-center">
-                            Lost your password? Reset user password
+                            <a >Lost your password? Reset user password</a>
                         </div>
                     </div>
                 </div>
@@ -32,15 +34,13 @@ function PopUp(props) {
                 <div className='popup'>
                     <div className='popup_inner'>
                     <button type="button" className="close" aria-label="Close">
-                        <span aria-hidden="true" onClick={()=>{props.setShowRegisterPopUp(!props.showRegisterPopUp)
-                        }}>×</span>
+                        <span aria-hidden="true" onClick={()=>props.setPopUp( null )}>×</span>
                     </button>
                     <Register/>
                     <div onClick={()=>{
-                        props.setType("login");
-                        console.log(props.type);
-                        }} className="text-center">
-                        I have an account, let me login...
+                        props.setPopUp( "login" )}
+                        } className="text-center">
+                        <a >I have an account, let me login...</a>
                     </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ function PopUp(props) {
             <div className="popup">
                 <div className="popup_inner">
                     <button type="button" className="close" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true" onClick={()=>props.setPopUp( null )}>×</span>
                     </button>
                     <ResetPassword/>
                 </div>
