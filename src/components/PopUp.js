@@ -5,26 +5,25 @@ import Login from '../pages/Sign-in'
 import ResetPassword from '../pages/ResetPassword'
 function PopUp(props) {
     
-
-    console.log("------");
-    
-    console.log(props.type);
     
     switch(props.type)
     {
         case("login"):
         return (
+
             <div className='popup'>
+           
                 <div className='popup_inner'>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
                     <Login/>
                     <div className="text-center">
                         <a >Create an account</a>
                     </div>
                     <div onClick={()=>{props.setType("reset");
-                    props.setShowLoginPopUp(!props.showLoginPopUp)
-                    
-                                                   }
-                    }className="text-center">
+                        props.setShowLoginPopUp(!props.showLoginPopUp)}
+                        }className="text-center">
                         Lost your password? Reset user password
                     </div>
                 </div>
@@ -34,6 +33,9 @@ function PopUp(props) {
         return(
         <div className='popup'>
               <div className='popup_inner'>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                <Register/>
               </div>
             </div>
@@ -42,7 +44,10 @@ function PopUp(props) {
         return(
             <div className="popup">
                 <div className="popup_inner">
-                <ResetPassword/>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <ResetPassword/>
                 </div>
             </div>
         )
