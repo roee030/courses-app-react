@@ -1,5 +1,5 @@
 import React from 'react'
-import CoursesGrid from './CoursesGrid';
+import ReviewsGrid from './ReviewsGrid';
 
 // material ui libraries
 import { makeStyles } from '@material-ui/styles';
@@ -19,36 +19,23 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-function ExpansionCoursesPanel(props) {
+function ExpansionReviewsPanel(props) {
     const classes = useStyles();
-    const admin = props.expansions.admin || { approved: [], pending: [] };
-    const participate = props.expansions.participate || { approved: [], pending: [] };
-  
+    const reviews = props.reviews || [];
+    console.log('revvvvvvv');
+    console.log(reviews);
+    
     return (
         <div className={classes.root}>
-            {renderExpansionPanels('admin', admin, classes)}
-            {renderExpansionPanels('participate', participate, classes)}
+            {renderExpansionPanels('reviews', reviews, classes)}
       </div>
     );
 }
 
-function renderExpansionPanels(title, expansion, classes) {
-    const approved = expansion.approved || [];
-    const pending = expansion.pending || [];
-    const total = [];
-    total.push(...approved);
-    total.push(...pending);
-
-    return (
-        createExpansionPanel(title, total, classes)
-    )
-}
-
-function createExpansionPanel(title, courses = [], classes) {
-    if (courses.length === 0)
+function renderExpansionPanels(title, reviews = [], classes) {
+    if (reviews.length === 0)
         return;
 
-    
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
@@ -56,11 +43,11 @@ function createExpansionPanel(title, courses = [], classes) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <Typography component={'span'}>
-                    <CoursesGrid courses={courses}/>
+                    <ReviewsGrid reviews={reviews}/>
                 </Typography>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     )
 }
 
-export default ExpansionCoursesPanel;
+export default ExpansionReviewsPanel;

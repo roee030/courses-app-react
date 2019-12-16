@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import Card from './courses/CourseCard';
+import CourseCard from './courses/CourseCard';
 
 function CoursesGrid(props) {
     const courses = props.courses || [];
@@ -10,7 +10,7 @@ function CoursesGrid(props) {
             <div id="grid-row">
                 {
                     courses.map((item, i) => {
-                        return <Card key={'grid-item' + i} name={item.name} description={item.description} courseId={item.courseId}/>
+                        return <CourseCard key={'grid-item' + i} name={item.name} description={item.description} courseId={item.courseId}/>
                     })
                 }
             </div>
