@@ -122,9 +122,6 @@ const FormPage = () => {
               <MDBBtn className="register-btn">Register</MDBBtn>
             </div>
             <div className="text-center">
-              <Link  to="/log-in" >
-                I have a user, let me Sign-in
-            </Link>
               </div>
           </form>
         </MDBCol>

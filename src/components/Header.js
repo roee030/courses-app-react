@@ -5,6 +5,7 @@ function Header(props) {
     const isLoggedIn = props.isLoggedIn;
     const onLoginClickFunc = props.onLoginClick;
     const showRegisterPopUp = props.showRegisterPopUp;
+    const showLoginPopUp = props.showLoginPopUp;
     const onSignupClickFunc = props.onSignupClick;
     const onMyAccountClickFunc = props.onMyAccountClick;
 
@@ -18,13 +19,13 @@ function Header(props) {
 
     return (
         <MDBNavbar className="Navbar"  dark expand="md" style={{backgroundImage: "linear-gradient(" + "to left, #D53D96  , #7A2A90"+" )"}}>
-         {addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp)}   
+         {addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp,showLoginPopUp)}   
 
         </MDBNavbar>
     )
 }
 
-function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp) {
+function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterPopUp,showLoginPopUp) {
     if (isLoggedIn) {
         return (
             <div>My Account</div>
@@ -33,7 +34,7 @@ function addButtons(isLoggedIn, onLoginClickFunc,onSignupClickFunc,showRegisterP
 
     return (
         <div>
-            <MDBBtn onClick={() => { onLoginClickFunc(!isLoggedIn)}}>Log-in</MDBBtn>
+            <MDBBtn onClick={() => {onLoginClickFunc(!showLoginPopUp)}}>Log-in</MDBBtn>
             <MDBBtn onClick={() => {onSignupClickFunc(!showRegisterPopUp)}}>Sign-up</MDBBtn>
         </div>
         

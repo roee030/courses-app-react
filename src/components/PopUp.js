@@ -10,41 +10,46 @@ function PopUp(props) {
     {
         case("login"):
         return (
-
-            <div className='popup'>
-           
-                <div className='popup_inner'>
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                    <Login/>
-                    <div className="text-center">
-                        <a >Create an account</a>
-                    </div>
-                    <div onClick={()=>{props.setType("reset");
-                        props.setShowLoginPopUp(!props.showLoginPopUp)}
-                        }className="text-center">
-                        Lost your password? Reset user password
+                <div className='popup'>
+                    <div className='popup_inner'>
+                        <button type="button" className="close" aria-label="Close">
+                        <span aria-hidden="true" onClick={()=>props.setShowLoginPopUp(!props.showLoginPopUp)}>×</span>
+                        </button>
+                        <Login/>
+                        <div className="text-center">
+                            <a >Create an account</a>
+                        </div>
+                        <div onClick={()=>{props.setType("reset");
+                            }
+                            }className="text-center">
+                            Lost your password? Reset user password
+                        </div>
                     </div>
                 </div>
-            </div>
         )
         case("register"):
         return(
-        <div className='popup'>
-              <div className='popup_inner'>
-                    <button type="button" class="close" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                <div className='popup'>
+                    <div className='popup_inner'>
+                    <button type="button" className="close" aria-label="Close">
+                        <span aria-hidden="true" onClick={()=>{props.setShowRegisterPopUp(!props.showRegisterPopUp)
+                        }}>×</span>
                     </button>
-               <Register/>
-              </div>
-            </div>
+                    <Register/>
+                    <div onClick={()=>{
+                        props.setType("login");
+                        console.log(props.type);
+                        }} className="text-center">
+                        I have an account, let me login...
+                    </div>
+                    </div>
+                </div>
             )
         case("reset"):
         return(
             <div className="popup">
                 <div className="popup_inner">
-                    <button type="button" class="close" aria-label="Close">
+                    <button type="button" className="close" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                     <ResetPassword/>

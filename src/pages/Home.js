@@ -22,6 +22,7 @@ export default function Home() {
     const [courses, isLoading] = useSearchEffect('courses', query);
     const [type, setType] = useState('')
     const renderPopUpObj ={
+        setShowRegisterPopUp: setShowRegisterPopUp,
         showRegisterPopUp: showRegisterPopUp,
         user :user,
         setUser: setUser,
@@ -37,13 +38,14 @@ export default function Home() {
     return (
         <div>
             <Header isLoggedIn={isLoggedIn} onLoginClick={setShowLoginPopUp}
+            showLoginPopUp={showLoginPopUp}
             onSignupClick={setShowRegisterPopUp} showRegisterPopUp={showRegisterPopUp}/>
             {renderPopUp(renderPopUpObj)}
             <div className="bg"></div>
                 <Title title={"Search for Course"}/>
                 <SearchBar onChange={searchString => setQuery(searchString)}/>
             <div>
-                <CoursesGrid courses={courses}/>    
+                <CoursesGrid courses={courses}/>
             </div>
         </div>
     );
@@ -54,16 +56,14 @@ function checkLoggedIn() {
 }
 
 function renderPopUp(obj) {
-        
     if (obj.showLoginPopUp === true ) {
         return (
             <PopUp type={obj.type='login'} setUser={obj.setUser} setType={obj.setType}showLoginPopUp={obj.showLoginPopUp} setShowLoginPopUp={obj.setShowLoginPopUp}/>
         )
     }
     else if (obj.showRegisterPopUp === true ) {
-        obj.type="register"
         return (
-            <PopUp type={obj.type} setType={obj.setType} />
+            <PopUp type={obj.type="register"} setType={obj.setType} setShowRegisterPopUp={obj.setShowRegisterPopUp} showRegisterPopUp={obj.showRegisterPopUp}  />
         )
     }
     else if(obj.type === "reset")

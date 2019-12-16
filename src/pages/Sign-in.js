@@ -28,7 +28,8 @@ const FormPage = () => {
               />
             </div>
             <div className="text-center">
-              <MDBBtn className="login-btn">Login</MDBBtn>
+              <MDBBtn onClick={()=>{{console.log("ldld");
+              }}}className="login-btn">Login</MDBBtn>
               </div>
               <div className="text-center">
              
