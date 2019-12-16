@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Link, useHistory } from "react-router-dom";
 import './Home.css'
 import CoursesGrid from '../components/CoursesGrid';
-import PopUp from '../components/PopUp';
 // import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -12,6 +11,7 @@ import * as serverApi from '../helpers/server_api';
 import useSearchEffect from '../hooks/use_search_effect';
 import RegisterPopUp from '../components/RegisterPopUp';
 import LoginPopUp from '../components/LoginPopUp';
+import ResetPopUp from '../components/ResetPopUp';
 
 export default function Home() {
     const [popUp, setPopUp] = useState(null);
@@ -27,7 +27,7 @@ export default function Home() {
    
     return (
         <div>
-            <Header isLoggedIn={isLoggedIn} onBtnClick={PopUp}
+            <Header isLoggedIn={isLoggedIn} onBtnClick={popUp}
             setPopUpType={(type) => {setPopUp(type)}}/>
             {renderPopUp(popUp,setPopUp)}
             <div className="bg"></div>
@@ -58,6 +58,12 @@ function renderPopUp(popUp,setPopUp) {
     {
         return(
             <LoginPopUp popUp={popUp} setPopUp={setPopUp}/>
+        )
+    }
+    else if (popUp === "reset")
+    {
+        return(
+            <ResetPopUp popUp={popUp} setPopUp={setPopUp}/>
         )
     }
     
