@@ -10,6 +10,8 @@ import SearchBar from '../components/SearchBar';
 import Title from '../components/Title';
 import * as serverApi from '../helpers/server_api';
 import useSearchEffect from '../hooks/use_search_effect';
+import RegisterPopUp from '../components/RegisterPopUp';
+import LoginPopUp from '../components/LoginPopUp';
 
 export default function Home() {
     const [popUp, setPopUp] = useState(null);
@@ -45,9 +47,18 @@ function checkLoggedIn() {
 function renderPopUp(popUp,setPopUp) {
     if (!popUp)
         return;
-        
-    return(
-        <PopUp popUp={popUp} setPopUp={setPopUp}/>
-    )
+
+    if(popUp === "register")
+    {
+        return(
+            <RegisterPopUp popUp={popUp} setPopUp={setPopUp}/>
+        )
+    }
+    else if ( popUp === "login")
+    {
+        return(
+            <LoginPopUp popUp={popUp} setPopUp={setPopUp}/>
+        )
+    }
     
 }

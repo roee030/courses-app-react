@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput,MDBIcon } from 'mdbreact';
 import Title from '../components/Title';
 
 import './Register.css'
@@ -21,7 +21,9 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+              
               />
+              
               <MDBInput
                 label="Your id number"
                 icon="envelope"
@@ -48,6 +50,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+
               />
               <MDBInput
                 label="Confirm your personal number"
@@ -57,6 +60,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+
               />
               <MDBInput
                 label="Your Hoger number"
@@ -66,6 +70,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+
               />
               <MDBInput
                 label="Confirm your Hoger number"
@@ -75,6 +80,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+
               />
               <MDBInput
                 label="Phone number"
@@ -84,15 +90,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
-              />
-              <MDBInput
-                label="Phone number"
-                icon="exclamation-triangle"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
+
               />
               <MDBInput
                 label="BirthDate"
@@ -102,6 +100,7 @@ const FormPage = () => {
                 validate
                 error="wrong"
                 success="right"
+                
               />
               <MDBInput
                 label="Your password"
@@ -109,6 +108,7 @@ const FormPage = () => {
                 group
                 type="password"
                 validate
+
               />
               <MDBInput
                 label="Confirm your password"
@@ -116,10 +116,12 @@ const FormPage = () => {
                 group
                 type="password"
                 validate
+
               />
             </div>
             <div className="text-center">
-              <MDBBtn className="register-btn">Register</MDBBtn>
+              <MDBBtn className="register-btn"
+              onClick={()=>console.log(this.userRegistration)}>Register</MDBBtn>
             </div>
             <div className="text-center">
               </div>
