@@ -30,10 +30,12 @@ async function request(type, serverModule, args, callback) {
         let res;
 
         switch (type) {
-            case 'post':
+            case 'post':                
                 res = await axios.post(url, args, config);
+                break;
             case 'put':
                 res = await axios.put(url, args, config);
+                break;
             default:
                 res = await axios.get(url + buildQueryStrings(args), config);
 

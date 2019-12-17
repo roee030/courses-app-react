@@ -1,27 +1,41 @@
-import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput,MDBIcon } from 'mdbreact';
+import React, {useState} from "react";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput,MDBIcon,MDBAlert  } from 'mdbreact';
 import Title from '../components/Title';
 import './Register.css'
 import { Link } from "react-router-dom";
-class FormPage extends React.Component  {
-state = {
-  Full_name: "",
-  idNumber: "",
-  confirm_idNumber: "",
-  personalNumber: "",
-  confirm_personalNumber: "",
-  hogerNumber: "",
-  confirm_hogerNumber: "",
-  birthDate: "",
-  password: "",
-  confirm_password: "",
-  registerErr: ""
-};
-changeHandler = event => {
-  this.setState({ [event.target.name]: event.target.value });
-};
-testFields = () =>
+import * as Server_API from '../helpers/server_api';
+export default function FormPage()  {
+const [Full_name,setFull_name] = useState("");
+const [idNumber,setIdNumber] = useState("");
+const [confirm_idNumber,setConfirm_idNumber] = useState("");
+const [personalNumber,setPersonalNumber] = useState("");
+const [confirm_personalNumber,setConfirm_personalNumber] = useState("");
+const [hogerNumber,setHogerNumber] = useState("");
+const [confirm_hogerNumber,setConfirm_hogerNumber] = useState("");
+const [birthDate,setBirthDate] = useState("");
+const [phoneNumber,setPhoneNumber] = useState("");
+const [password,setPassword] = useState("");
+const [confirm_password,setConfirm_password] = useState("");
+var registerErr = "";
+function setRegisterErr (data) 
 {
+    registerErr= data;
+}
+function testFields ()
+{
+    var body = {
+        name:Full_name,
+        idNumber: idNumber,
+        idNumberConf: confirm_idNumber,
+        personalNumber: personalNumber,
+        personalNumberConf: confirm_personalNumber,
+        hogerNumber: hogerNumber,
+        hogerNumberConf: confirm_hogerNumber,
+        phoneNumber: phoneNumber,
+        birthDate: birthDate,
+        password: password,
+        passwordConf: confirm_password
+    }
     var Full_name_field = document.getElementById("Full_name");
     var idNumber_field = document.getElementById("idNumber");
     var confirm_idNumber_field = document.getElementById("confirm_idNumber");
@@ -30,17 +44,25 @@ testFields = () =>
     var hogerNumber_field = document.getElementById("hogerNumber");
     var confirm_hogerNumber_field = document.getElementById("confirm_hogerNumber");
     var birthDate_field = document.getElementById("birthDate");
+    var phoneNumber_field = document.getElementById("phoneNumber");
     var password_field = document.getElementById("password");
     var confirm_password_field = document.getElementById("confirm_password");
     var registerError_field = document.getElementById("registerErr");
-    this.setState({
-        registerErr: ""
-    })
     registerError_field.innerHTML = ""
-    //Id validation
-    if(this.state.idNumber == this.state.confirm_idNumber)
+    //Name validation 
+    if(Full_name == "")
     {
-        if(this.state.idNumber.length === 9)
+        Full_name_field.className += " is-invalid "
+        setRegisterErr(registerErr + "<br />Enter your name ")
+    }
+    else
+    {
+        Full_name_field.className += " is-valid "
+    }
+    //Id validation
+    if(idNumber == confirm_idNumber)
+    {
+        if(idNumber.length == 9)
         {
             idNumber_field.className+=" is-valid "
             confirm_idNumber_field.className+="  is-valid "
@@ -48,38 +70,38 @@ testFields = () =>
         else{
             idNumber_field.className+=" is-invalid "
             confirm_idNumber_field.className+="  is-invalid "
-            this.state.registerErr+="<br />ID number need to be 9 numbers! ";
+            setRegisterErr(registerErr + "<br />ID number need to be 9 numbers! ");
         }
     }
     else
     {
-        this.state.registerErr+="<br />ID number not match! "
+        setRegisterErr(registerErr + "<br />ID number not match! ");
         idNumber_field.className+=" is-invalid "
         confirm_idNumber_field.className += "  is-invalid "
     }
     //personalNumber validation
-    if(this.state.personalNumber === this.state.confirm_personalNumber)
+    if(personalNumber == confirm_personalNumber)
     {
-        if(this.state.personalNumber.length === 7)
+        if(personalNumber.length == 7)
         {
             personalNumber_field.className+= " is-valid "
             confirm_personalNumber_field.className+= " is-valid "
         }
         else
         {
-            this.state.registerErr+="<br />Personal number need to be 7 numbers! ";
+            setRegisterErr(registerErr + "<br />Personal number need to be 7 numbers! ")
             personalNumber_field.className+= " is-invalid "
         }
     }
     else{
-        this.state.registerErr+="<br />Personal number not match! "
+        setRegisterErr(registerErr + "<br />Personal number not match! ")
         personalNumber_field.className+= " is-invalid "
         confirm_personalNumber_field.className+= " is-invalid "
     }
     //hogerNumber validation
-    if(this.state.hogerNumber === this.state.confirm_hogerNumber)
+    if(hogerNumber == confirm_hogerNumber)
     {
-        if(this.state.hogerNumber.length === 8)
+        if(hogerNumber.length == 8)
         {
             hogerNumber_field.className+= " is-valid "
             confirm_hogerNumber_field.className+= " is-valid "
@@ -87,41 +109,63 @@ testFields = () =>
         else
         {
             hogerNumber_field.className+= " is-invalid "
-            this.state.registerErr+="<br />Hoger number need to be 8 numbers! ";
+            setRegisterErr(registerErr +"<br />Hoger number need to be 8 numbers! ");
         }
     }
     else
     {
-        this.state.registerErr+="<br />Hoger number not match! "
+        setRegisterErr(registerErr +"<br />Hoger number not match! ")
         hogerNumber_field.className+= " is-invalid "
         confirm_hogerNumber_field.className+= " is-invalid "
     }
-    //password validation
-    if(this.state.password === this.state.confirm_password)
+    //phonenumber validation
+    if(phoneNumber.length != 10)
     {
-        if(this.state.password.length > 6)
+        setRegisterErr(registerErr +"<br />Phone number is not valid! ");
+        phoneNumber_field.className += " is-invalid "
+    }
+    else
+    {
+        phoneNumber_field.className += " is-valid "
+
+    }
+    //password validation
+    if(password == confirm_password)
+    {
+        if(password.length > 6)
         {
             password_field.className += " is-valid "
-            confirm_password_field +=  " is-valid "
+            confirm_password_field.className +=  " is-valid "
         }
         else
         {
             password_field.className += " is-invalid "
-            this.state.registerErr+=" <br />Your password need to be more than 6 character! ";
+            setRegisterErr(registerErr + " <br />Your password need to be more than 6 character! ");
         }
     }
     else
     {
-        this.state.registerErr+="<br />Password not match! "
+        setRegisterErr(registerErr + "<br />Password not match! ");
         password_field.className += " is-invalid "
         confirm_password_field +=  " is-invalid "
     }
-    if(this.state.registerErr != "")
+
+    
+    if(registerErr != "")
     {
-        registerError_field.innerHTML += this.state.registerErr;
+        registerError_field.innerHTML += registerErr;
+        console.log(registerErr);
+        
     }
+    else
+    {
+        Server_API.post("/users/signup", body ,(data)=>console.log(data))
+        
+        
+    }
+    
 }
-render() {
+
   return (
     <MDBContainer className="register-component">
       <MDBRow>
@@ -131,6 +175,7 @@ render() {
             <div className="grey-text ">
               <MDBInput
                 label="Your name"
+                name="Full_name"
                 id="Full_name"
                 icon="user"
                 group
@@ -140,8 +185,8 @@ render() {
                 success="right"
                 className=""
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setFull_name(e.target.value)}
+                />
               
               <MDBInput
                 label="Your id number"
@@ -154,8 +199,8 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setIdNumber(e.target.value)}
+                />
               <MDBInput
                 label="Confirm your id number"
                 id="confirm_idNumber"
@@ -167,8 +212,8 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setConfirm_idNumber(e.target.value)}
+                />
               <MDBInput
                 label="Your personal number"
                 name="personalNumber"
@@ -180,9 +225,8 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
-
-              />
+                onChange={e => setPersonalNumber(e.target.value)}
+                />
               <MDBInput
                 label="Confirm your personal number"
                 name="confirm_personalNumber"
@@ -194,7 +238,7 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
+                onChange={e => setConfirm_personalNumber(e.target.value)}
 
               />
               <MDBInput
@@ -208,7 +252,7 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
+                onChange={e => setHogerNumber(e.target.value)}
 
               />
               <MDBInput
@@ -222,8 +266,8 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setConfirm_hogerNumber(e.target.value)}
+                />
               <MDBInput
                 label="Phone number"
                 name="phoneNumber"
@@ -235,8 +279,8 @@ render() {
                 error="wrong"
                 success="right"
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setPhoneNumber(e.target.value)}
+                />
               <MDBInput
                 label="BirthDate"
                 id="birthDate"
@@ -258,7 +302,7 @@ render() {
                 type="password"
                 validate
                 required
-                onChange={this.changeHandler}
+                onChange={e => setPassword(e.target.value)}
 
               />
               <MDBInput
@@ -271,12 +315,13 @@ render() {
                 type="password"
                 validate
                 required
-                onChange={this.changeHandler}
-              />
+                onChange={e => setConfirm_password(e.target.value)}
+                />
             </div>
             <div className="text-center">
               <MDBBtn className="register-btn"
-              onClick={()=>this.testFields()
+              onClick={()=>testFields()
+              
               }>Register</MDBBtn>
             </div>
             <div className="text-center" id="registerErr">
@@ -287,5 +332,3 @@ render() {
     </MDBContainer>
   
   )}
-}
-export default FormPage;
