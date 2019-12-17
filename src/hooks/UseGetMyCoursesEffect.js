@@ -41,17 +41,17 @@ export default function UseGetMyCoursesEffect() {
         }
     };
     const [result, setResult] = useState(resultDefault);
-    const [loading, setLoading] = useState("false");
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
         function fetchList() {
-            setLoading("true");
+            setLoading(true);
 
             serverApi.get('courses/mine', {}, (data) => {
-                console.log('asasasasd')
+                console.log('courses/mine')
                 console.log(data)
                 setResult(placeHolderData);
-                setLoading('null');
+                setLoading(null);
                 // setResult(data[serverModule])
             });
         }

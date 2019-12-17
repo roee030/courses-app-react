@@ -25,17 +25,17 @@ export default function useSearchEffect(serverModule = 'courses', nameString = '
 ]
     const fullModule = `${serverModule}/search`;
     const [result, setResult] = useState([]);
-    const [loading, setLoading] = useState("false");
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
         function fetchSearchList() {
-            setLoading("true");
+            setLoading(true);
 
             serverApi.get(fullModule, { name: nameString }, (data) => {
                 console.log('asasasasd')
                 console.log(data)
                 setResult(placeHolderData);
-                setLoading('null');
+                setLoading(null);
                 // setResult(data[serverModule])
             });
         }

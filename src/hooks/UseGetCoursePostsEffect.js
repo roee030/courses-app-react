@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import * as serverApi from '../helpers/server_api';
 
-export default function UseGetMyReviewsEffect() {
+export default function UseGetCoursePostsEffect(courseId) {
     const placeHolderData = [{
         writerName: "React js full course",
         courseName: "Master React v16.6.3 and Redux with React Router, Webpack, and Create-React-App. Includes Hooks!",
-        title: 'this is title',
-        description: 'this is a description',
+        content: 'this is content',
         createdAt: new Date(),
-        reviewId: '1213121313'
+        _id: 'asas'
     },
     {
         writerName: "React js full course",
         courseName: "Master React v16.6.3 and Redux with React Router, Webpack, and Create-React-App. Includes Hooks!",
-        title: 'this is title',
-        description: 'this is a description',
+        content: 'this is content',
         createdAt: new Date(),
-        reviewId: '1213121313'
+        _id: 'asas'
     }];
 
     const resultDefault = [];
@@ -27,10 +25,9 @@ export default function UseGetMyReviewsEffect() {
         function fetchList() {
             setLoading(true);
 
-            serverApi.get('users/myReviews', {}, (data) => {
-                console.log('users/myReviews');
-                console.log(data);
-                
+            serverApi.get('courses/posts', { courseId: courseId }, (data) => {
+                console.log('courses/posts')
+                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

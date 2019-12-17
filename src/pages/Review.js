@@ -9,15 +9,9 @@ import UseGetUserReviewsEffect from '../hooks/UseGetUserReviewsEffect';
 import UseGetMyCoursesEffect from '../hooks/UseGetMyCoursesEffect';
 import UseGetMyReviewsEffect from '../hooks/UseGetMyReviewsEffect';
 
-function User(props) {
+function Review(props) {
     const user = props.user;
-    const showingUser = props.showingAccount;
-    const course = props.course;
-
-    // const isMyAccount = props.isMyAccount;
-    // const isSuperUser = account.isSuperUser;
-    // const [myAdminCourses, setMyAdminCourses] = useState([]);
-    // const [myParticipateCourses, setMyParticipateCourses] = useState([]);
+    const review = props.review;
     
     if (isShowingUserIsTheCurrentUser(user, showingUser))
         return renderMyUser();
@@ -120,4 +114,4 @@ function isPupilOfTheUser(user, showingUser) { // TODO: add logic
     return false;
 }
 
-export default User;
+export default Review;

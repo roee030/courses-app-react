@@ -21,17 +21,17 @@ export default function UseGetUserReviewsEffect(courseId, pupilId) {
 
     const resultDefault = [];
     const [result, setResult] = useState(resultDefault);
-    const [loading, setLoading] = useState("false");
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
         function fetchList() {
-            setLoading("true");
+            setLoading(true);
 
             serverApi.get('users/reviews', { courseId: courseId, pupilId: pupilId }, (data) => {
                 console.log('users/reviews')
                 console.log(data)
                 setResult(placeHolderData);
-                setLoading('null');
+                setLoading(null);
                 // setResult(data[serverModule])
             });
         }

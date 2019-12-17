@@ -15,17 +15,17 @@ export default function UseGetCoursesEffect(coursesIds = []) {
 
     const resultDefault = [];
     const [result, setResult] = useState(resultDefault);
-    const [loading, setLoading] = useState("false");
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
         function fetchList() {
-            setLoading("true");
+            setLoading(true);
 
             serverApi.get('courses/multiple', { coursesIds: coursesIds }, (data) => {
-                console.log('asasasasd')
+                console.log('courses/multiple')
                 console.log(data)
                 setResult(placeHolderData);
-                setLoading('null');
+                setLoading(null);
                 // setResult(data[serverModule])
             });
         }
