@@ -36,6 +36,7 @@ function testFields ()
         password: password,
         passwordConf: confirm_password
     }
+    var form = document.getElementById("form_validation");
     var Full_name_field = document.getElementById("Full_name");
     var idNumber_field = document.getElementById("idNumber");
     var confirm_idNumber_field = document.getElementById("confirm_idNumber");
@@ -49,8 +50,9 @@ function testFields ()
     var confirm_password_field = document.getElementById("confirm_password");
     var registerError_field = document.getElementById("registerErr");
     registerError_field.innerHTML = ""
+    setRegisterErr("");
     //Name validation 
-    if(Full_name == "")
+    if(Full_name == "" )
     {
         Full_name_field.className += " is-invalid "
         setRegisterErr(registerErr + "<br />Enter your name ")
@@ -67,7 +69,8 @@ function testFields ()
             idNumber_field.className+=" is-valid "
             confirm_idNumber_field.className+="  is-valid "
         }
-        else{
+        else
+        {
             idNumber_field.className+=" is-invalid "
             confirm_idNumber_field.className+="  is-invalid "
             setRegisterErr(registerErr + "<br />ID number need to be 9 numbers! ");
@@ -91,6 +94,7 @@ function testFields ()
         {
             setRegisterErr(registerErr + "<br />Personal number need to be 7 numbers! ")
             personalNumber_field.className+= " is-invalid "
+            confirm_personalNumber_field.className+= " is-invalid "
         }
     }
     else{
@@ -109,6 +113,7 @@ function testFields ()
         else
         {
             hogerNumber_field.className+= " is-invalid "
+            confirm_hogerNumber_field.className+= " is-invalid "
             setRegisterErr(registerErr +"<br />Hoger number need to be 8 numbers! ");
         }
     }
@@ -126,8 +131,7 @@ function testFields ()
     }
     else
     {
-        phoneNumber_field.className += " is-valid "
-
+        phoneNumber_field.className += " is-valid " 
     }
     //password validation
     if(password == confirm_password)
@@ -140,6 +144,7 @@ function testFields ()
         else
         {
             password_field.className += " is-invalid "
+            confirm_password_field.className +=  " is-invalid "
             setRegisterErr(registerErr + " <br />Your password need to be more than 6 character! ");
         }
     }
@@ -147,21 +152,19 @@ function testFields ()
     {
         setRegisterErr(registerErr + "<br />Password not match! ");
         password_field.className += " is-invalid "
-        confirm_password_field +=  " is-invalid "
+        confirm_password_field.className +=  " is-invalid "
     }
 
     
     if(registerErr != "")
     {
-        registerError_field.innerHTML += registerErr;
-        console.log(registerErr);
         
+        registerError_field.innerHTML += registerErr;
     }
     else
     {
+        form.className += " was-validated "
         Server_API.post("/users/signup", body ,(data)=>console.log(data))
-        
-        
     }
     
 }
@@ -170,7 +173,7 @@ function testFields ()
     <MDBContainer className="register-component">
       <MDBRow>
         <MDBCol md="6">
-          <form className="register-form">
+          <form className="register-form" id="form_validation">
           <Title title="Register"/>
             <div className="grey-text ">
               <MDBInput
