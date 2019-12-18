@@ -4,6 +4,7 @@ import { MDBBtn } from 'mdbreact'; // TODO: delete unnecessary
 
 import Header from '../components/Header';
 import CoursesGrid from '../components/CoursesGrid';
+import MembersGrid from '../components/MembersGrid';
 import UseGetCoursesEffect from '../hooks/UseGetCoursesEffect';
 import UseGetCourseReviewsEffect from '../hooks/UseGetCourseReviewsEffect';
 import UseGetCoursePostsEffect from '../hooks/UseGetCoursePostsEffect';
@@ -12,15 +13,17 @@ import * as serverApi from '../helpers/server_api';
 
 function Course(props) {
     const user = props.user;
-    const course = props.course;
+    const defaultCourse = props.course; // TODO: add state
+    const testCourse
+    const [course, setCourse] = useState(defaultCourse);
     // const userId = props.match.id;
     const userId = '123123'; // TODO: remove
     // const isCourseOpen = course.isOpen;
     const isCourseOpen = false; // TODO: remove
     const [pendingRequestsIds, setPendingRequestsIds] = useState(course.pendingRequests || []);
-    const [admins, isAdminsLoading] = UseGetUsersEffect([]);
-    const [participates, isParticipatesLoading] = UseGetUsersEffect([]);
-    const [pendingRequests, isPendingRequestsLoading] = UseGetUsersEffect([]);
+    const [admins, isAdminsLoading] = UseGetUsersEffect(course.admins);
+    const [participates, isParticipatesLoading] = UseGetUsersEffect(course.participates);
+    const [pendingRequests, isPendingRequestsLoading] = UseGetUsersEffect(course.pendingRequests);
     const [posts, isPostsLoading] = UseGetCoursePostsEffect(course._id)
     const [reviews, isReviewsLoading] = UseGetCourseReviewsEffect(course._id);
     const [subCourses, isSubCoursesLoading] = UseGetCoursesEffect(course.subCourses);
@@ -31,12 +34,21 @@ function Course(props) {
         <div>
             <Header isLoggedIn={true}/>
             <div>
-                <UserInfo />
-                <ExpansionCoursesPanel expansions={courses}/>
-                <ExpansionReviewsPanel reviews={reviews}/>
+                {renderPage(userId, )}
             </div>
         </div>
     )
+}
+
+function renderPage(userId, course, subCourses, admins) {
+    if (isSuperUser())
+        return renderSuperUserCourse();
+    else if (isAdmin())
+        return renderAdminCourse();
+    else if (isParticipate())
+        return renderParticipateCourse();
+
+    return renderOutsiderCourse(userId, course, subCourses, admins);
 }
 
 function isSuperUser() { // TODO: add logic
@@ -51,7 +63,7 @@ function isParticipate() { // TODO: add logic
     return false;
 }
 
-function renderOutsiderCourse(userId, course, subCourses = []) {
+function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
     const courseName = course.name;
     const courseId = course._id;
     const courseDescription = course.description;
@@ -61,6 +73,12 @@ function renderOutsiderCourse(userId, course, subCourses = []) {
     const isCourseOpen = course.isOpen;
 
     const [pendingRequestsIds, setPendingRequestsIds] = useState(course.pendingRequests || []);
+    const membersGrid = {
+        title: 'admins',
+        isRemoveEnabled: false,
+        list: admins,
+        memberFunc: onMemberClick
+    };
 
     return (    
         <div id='mainContainer'>
@@ -72,34 +90,26 @@ function renderOutsiderCourse(userId, course, subCourses = []) {
                     <div id='description'>
                         {courseDescription}
                     </div>
-                    {renderMainCourseLink(mainCourseId)}
-                    {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                        {renderMainCourseLink(mainCourseId)}
+                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
                     <div>
                         {renderRemoveOrRequestToJoinBtn(userId, courseId, pendingRequestsIds, setPendingRequestsIds, isCourseOpen)}
                     </div>
                 </div>
                 <div>
-                <Grid item xs={12} md={6}>
-                <Typography variant="h6" className={classes.title}>
-                    Text only
-                </Typography>
-                <div className={classes.demo}>
-                    <List dense={dense}>
-                    {generate(
-                        <ListItem>
-                        <ListItemText
-                            primary="Single-line item"
-                            secondary={secondary ? 'Secondary text' : null}
-                        />
-                        </ListItem>,
-                    )}
-                    </List>
-                </div>
-                </Grid>
+                    <MembersGrid members={membersGrid}/>
                 </div>
             </div>
         </div>
     )
+}
+
+function onMemberClick() { //TODO: add logic
+
+}
+
+function onRemoveMemberClick() {
+
 }
 
 function renderAdminCourse() {
