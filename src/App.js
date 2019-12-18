@@ -8,20 +8,21 @@ import Courses from './pages/Courses'
 import Signin from './pages/Sign-in'
 import Register from './pages/Register'
 import ErrorPage from './components/ErrorPage'
-import SingleCourse from './pages/SingleCourse'
 import './App.css'
 import { MDBContainer } from 'mdbreact';
 import Footer from './components/Footer'
 import ResetPassword from './pages/ResetPassword'
 function App() {
+  
+  /*const value = useMemo(() => ({ user, setUser }), [user, setUser]);*/
   return (
     <div>
       <Header/>
-      <MDBContainer fluid>    
+      <MDBContainer fluid>   
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/user" component={User}/>
-        <Route exact path="/courses/:id" component={SingleCourse}/>
+        {/*<Route exact path="/user" component={User}/>*/}
+        {/*<Route exact path="/courses/:id" component={SingleCourse}/>*/}
         <Route exact path="/log-in" component={Signin}/>
         <Route exact path="/register" component={Register}/>
         <Route exact path="/resetpassword" component={ResetPassword}/>
@@ -30,7 +31,9 @@ function App() {
       </Switch>
       
       </MDBContainer>
+      
       <Footer/>
+      
     </div>
   );
 }
