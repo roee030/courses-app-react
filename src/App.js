@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import { Link } from "react-router-dom";
+import Header from './pages/Header';
 import Home from './pages/Home';
-import User from './pages/User';
+
+import Courses from './pages/Courses'
 import Signin from './pages/Sign-in'
 import Register from './pages/Register'
 import ErrorPage from './components/ErrorPage'
@@ -14,9 +16,9 @@ import ResetPassword from './pages/ResetPassword'
 function App() {
   return (
     <div>
-      <MDBContainer fluid>      
+      <Header/>
+      <MDBContainer fluid>    
       <Switch>
-
         <Route exact path="/" component={Home}/>
         <Route exact path="/user" component={User}/>
         <Route exact path="/courses/:id" component={SingleCourse}/>

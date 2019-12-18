@@ -10,8 +10,8 @@
 {
     display: flex;
     flex-direction:column;
-    width: 70vw;
-    height: 1100px;
+    width: 55vw;
+   
     align-items: center;
     justify-content: center;
 }
