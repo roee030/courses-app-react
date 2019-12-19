@@ -42,27 +42,15 @@ function Course(props) {
     )
 }
 
-function renderPage(userId, course, subCourses, admins) {
-    if (isSuperUser())
+function renderPage(user, course, subCourses, admins, participates) {
+    if (user.isSuperUser)
         return renderSuperUserCourse();
-    else if (isAdmin())
+    else if (isAdmin(user._id, admins))
         return renderAdminCourse();
-    else if (isParticipate())
+    else if (isParticipate(user._id, participates))
         return renderParticipateCourse();
 
-    return renderOutsiderCourse(userId, course, subCourses, admins);
-}
-
-function isSuperUser() { // TODO: add logic
-    return false;
-}
-
-function isAdmin() { // TODO: add logic
-    return false;
-}
-
-function isParticipate() { // TODO: add logic
-    return false;
+    return renderOutsiderCourse(user._id, course, subCourses, admins);
 }
 
 function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
@@ -107,6 +95,189 @@ function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
             </div>
         </div>
     )
+}
+
+function renderAdminCourse(course, subCourses = [], admins = [], participates = [], pendingRequests = [], posts = [], reviews = []) {
+    const courseName = course.name;
+    const courseDescription = course.description;
+    const coreFileLink = course.coreFile.link;
+    const mainCourseId = course.mainCourseId;
+    const fromDate = course.dates.from;
+    const toDate = course.dates.to;
+    
+    const membersGrid = [{
+        title: 'admins',
+        isRemoveEnabled: false,
+        isAddEnabled: false,
+        list: admins,
+        memberFunc: onMemberClick
+    }, {
+        title: 'participates',
+        isRemoveEnabled: true,
+        isAddEnabled: false,
+        list: participates,
+        memberFunc: onMemberClick,
+        removeFunc: onRemoveMemberClick
+    }, {
+        title: 'pending requests',
+        isRemoveEnabled: true,
+        isAddEnabled: true,
+        list: pendingRequests,
+        memberFunc: onMemberClick,
+        removeFunc: onRemovePendingClick,
+        addFunc: onApprovePendingRequestClick
+    }];
+
+    return (
+        <div id='mainContainer'>
+            <div id='contentContainer'>
+                <div id='courseDataContainer'>
+                    <div id='title'>
+                        {courseName}
+                    </div>
+                    <div id='description'>
+                        {courseDescription}
+                    </div>
+                    <div>
+                        {renderCoreFileLink(coreFileLink)}
+                    </div>
+                    <div>
+                        {renderMainCourseLink(mainCourseId)}
+                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                    </div>
+                    <div>
+                        {renderPostsArea(posts, true)}
+                    </div>
+                    <div>
+                        {renderReviewsArea(reviews, true, false)}
+                    </div>
+                </div>
+                <div>
+                    <MembersGrid members={membersGrid}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function renderParticipateCourse(course, admins = [], participates = [], subCourses = [], posts = []) {
+    const courseName = course.name;
+    const courseDescription = course.description;
+    const mainCourseId = course.mainCourseId;
+    const fromDate = course.dates.from;
+    const toDate = course.dates.to;
+    
+    const membersGrid = [{
+        title: 'admins',
+        isRemoveEnabled: false,
+        isAddEnabled: false,
+        list: admins,
+        memberFunc: onMemberClick
+    }, {
+        title: 'participates',
+        isRemoveEnabled: false,
+        isAddEnabled: false,
+        list: participates,
+        memberFunc: onMemberClick,
+        removeFunc: onRemoveMemberClick
+    }];
+
+    return (
+        <div id='mainContainer'>
+            <div id='contentContainer'>
+                <div id='courseDataContainer'>
+                    <div id='title'>
+                        {courseName}
+                    </div>
+                    <div id='description'>
+                        {courseDescription}
+                    </div>
+                    <div>
+                        {renderMainCourseLink(mainCourseId)}
+                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                    </div>
+                    <div>
+                        {renderPostsArea(posts, false)}
+                    </div>
+                    <div>
+                        {renderReviewsArea([], false, true)}
+                    </div>
+                </div>
+                <div>
+                    <MembersGrid members={membersGrid}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function renderSuperUserCourse(course, admins = [], participates = [], subCourses =[], reviews = []) {
+    const courseName = course.name;
+    const courseDescription = course.description;
+    const coreFileLink = course.coreFile.link;
+    const mainCourseId = course.mainCourseId;
+    const fromDate = course.dates.from;
+    const toDate = course.dates.to;
+    
+    const membersGrid = [{
+        title: 'admins',
+        isRemoveEnabled: true,
+        isAddEnabled: false,
+        list: admins,
+        memberFunc: onMemberClick,
+        removeFunc: onRemoveAdminClick
+    }, {
+        title: 'participates',
+        isRemoveEnabled: false,
+        isAddEnabled: false,
+        list: participates,
+        memberFunc: onMemberClick
+    }];
+
+    return (
+        <div id='mainContainer'>
+            <div id='contentContainer'>
+                <div id='courseDataContainer'>
+                    <div id='title'>
+                        {courseName}
+                    </div>
+                    <div id='description'>
+                        {courseDescription}
+                    </div>
+                    <div>
+                        {renderCoreFileLink(coreFileLink)}
+                    </div>
+                    <div>
+                        {renderMainCourseLink(mainCourseId)}
+                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                    </div>
+                    <div>
+                        {renderReviewsArea(reviews, false, false, true)}
+                    </div>
+                </div>
+                <div>
+                    <Button onClick={onAddAdminClick}>Add Admin</Button>
+                    <MembersGrid members={membersGrid}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function isAdmin(userId, admins = []) {
+    const isAdmin = admins.some((admin) => {
+        return admin._id === userId;
+    });
+
+    return isAdmin;
+}
+
+function isParticipate(userId, participates = []) {
+    const isParticipate = participates.some((participate) => {
+        return participate._id === userId;
+    });
+
+    return isParticipate
 }
 
 function renderRemoveOrRequestToJoinBtn(userId, courseId, pendingRequestsIds = [], setPendingRequestsIds, isCourseOpen = false) {
@@ -181,73 +352,11 @@ function onAddReviewClick() { //TODO: add logic
 
 }
 
-function renderAdminCourse(userId, course, subCourses = [], admins = [], participates = [], pendingRequests = [], posts = [], reviews = []) {
-    const courseName = course.name;
-    const courseDescription = course.description;
-    const coreFileLink = course.coreFile.link;
-    const mainCourseId = course.mainCourseId;
-    const fromDate = course.dates.from;
-    const toDate = course.dates.to;
-    const membersGrid = [{
-        title: 'admins',
-        isRemoveEnabled: false,
-        isAddEnabled: false,
-        list: admins,
-        memberFunc: onMemberClick
-    }, {
-        title: 'participates',
-        isRemoveEnabled: true,
-        isAddEnabled: false,
-        list: participates,
-        memberFunc: onMemberClick,
-        removeFunc: onRemoveMemberClick
-    }, {
-        title: 'pending requests',
-        isRemoveEnabled: true,
-        isAddEnabled: true,
-        list: pendingRequests,
-        memberFunc: onMemberClick,
-        removeFunc: onRemoveMemberClick,
-        addFunc: onApprovePendingRequestClick
-    }];
-
-    return (
-        <div id='mainContainer'>
-            <div id='contentContainer'>
-                <div id='courseDataContainer'>
-                    <div id='title'>
-                        {courseName}
-                    </div>
-                    <div id='description'>
-                        {courseDescription}
-                    </div>
-                    <div>
-                        {renderCoreFileLink(coreFileLink)}
-                    </div>
-                    <div>
-                        {renderMainCourseLink(mainCourseId)}
-                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
-                    </div>
-                    <div>
-                        {renderPostsArea(posts, isAdmin)}
-                    </div>
-                    <div>
-                        {renderReviewsArea(reviews, isAdmin, isParticipate)}
-                    </div>
-                </div>
-                <div>
-                    <MembersGrid members={membersGrid}/>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-function renderReviewsArea(reviews = [], isAdmin = false, isParticipate = false) {
+function renderReviewsArea(reviews = [], isAdmin = false, isParticipate = false, isSuperUser = false) {
     return (
         <div id='reviews'>
             {renderReviewsTitle(isAdmin, isParticipate)}
-            <ReviewsGrid reviews={reviews}/>
+            {isAdmin || isSuperUser ? <ReviewsGrid reviews={reviews}/> : undefined}
         </div>
     )
 }
@@ -256,7 +365,7 @@ function renderReviewsTitle(isAdmin = false, isParticipate = false) {
     return (
         <div id='reviewsTitle'>
             <div>
-                Reviews 
+                {isParticipate ? 'Add Review' : 'Reviews'} 
             </div>
             {addReviewButton(isAdmin, isParticipate)}
         </div>
@@ -284,7 +393,7 @@ function renderPostsTitle(isAdmin = false) {
 }
 
 function addReviewButton(isAdmin = false, isParticipate = false) {
-    if (!isAdmin || !isParticipate)
+    if (!isAdmin && !isParticipate)
         return;
 
     return (
@@ -305,22 +414,6 @@ function addPostButton(isAdmin = false) {
     )
 }
 
-function renderParticipateCourse() {
-    return (
-        <div id='mainContainer'>
-
-        </div>
-    )
-}
-
-function renderSuperUserCourse() {
-    return (
-        <div id='mainContainer'>
-            
-        </div>
-    )
-}
-
 function renderCoreFileLink(coreFileLink) {
     return (
         <div>
@@ -329,10 +422,6 @@ function renderCoreFileLink(coreFileLink) {
             </Button>
         </div>
     )
-}
-
-function isUserInPendingRequests(userId, pendingRequests = []) {
-    return pendingRequests.includes(userId);
 }
 
 function renderMainCourseLink(mainCourseId) {
