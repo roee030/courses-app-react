@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import { BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from './components/Header';
@@ -12,11 +12,14 @@ import './App.css';
 import { MDBContainer } from 'mdbreact';
 import Footer from './components/Footer';
 import ResetPassword from './pages/ResetPassword';
+import UserContext from '../src/helpers/UserContext'
+
 function App() {
-  
-  /*const value = useMemo(() => ({ user, setUser }), [user, setUser]);*/
-  return (
+    const context = useContext(UserContext);
+    return (
     <div>
+      <UserContext.Provider value={context}>
+
       <Header/>
       <MDBContainer fluid>   
       <Switch>
@@ -33,7 +36,8 @@ function App() {
       </MDBContainer>
       
       <Footer/>
-      
+    </UserContext.Provider>
+
     </div>
   );
 }

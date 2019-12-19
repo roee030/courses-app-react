@@ -1,14 +1,22 @@
 import React , {useState , createContext} from 'react';
 
-const UserContext = createContext("lalala");
-export {UserContext}
-export default function UserManagement(props)
-{
-    const UserHook = useState({color:"red"})
+const all= {
+    user: 'aaa',
+    courses: {
 
-    return(
-        <UserContext.Provider value={UserHook}>
-            {props.children}
-        </UserContext.Provider>
-    );
+    },
+
 }
+
+const UserContext = createContext(all);
+export default UserContext;
+
+
+// export default function UserManagement(props)
+// {
+//     return(
+//         <UserContext.Provider value={UserContext}>
+//             {props.children}
+//         </UserContext.Provider>
+//     );
+// }
