@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import Title from '../components/Title';
 import * as serverApi from '../helpers/server_api';
-import useSearchEffect from '../hooks/use_search_effect';
+import useSearchEffect from '../hooks/UseSearchEffect';
 import RegisterPopUp from '../components/RegisterPopUp';
 import LoginPopUp from '../components/LoginPopUp';
 import ResetPopUp from '../components/ResetPopUp';
