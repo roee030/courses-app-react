@@ -31,10 +31,16 @@ export default function useSearchEffect(serverModule = 'courses', nameString = '
         function fetchSearchList() {
             setLoading(true);
 
-            serverApi.get(fullModule, { name: nameString }, (data) => {
-                console.log('asasasasd')
-                console.log(data)
-                setResult(placeHolderData);
+            serverApi.get(fullModule, { name: nameString }, (res) => {
+                const data = res ? res.data : undefined;
+                console.log(fullModule)
+                console.log(res)
+                
+                if (data && data.courses && data.courses.length > 0)
+                    setResult(data.courses);
+                else
+                    setResult(placeHolderData);
+
                 setLoading(null);
                 // setResult(data[serverModule])
             });

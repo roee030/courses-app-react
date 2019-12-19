@@ -20,19 +20,19 @@ function MembersGrid(props) {
           margin: 2
         },
     }));
+    const classes = useStyles();
 
     if (members.length === 0)
         return;
 
-    const classes = useStyles();
     return (
         <Grid item xs={12} md={6}>
-            {rendertitlesAndLists(members, classes)}
+            {renderTitlesAndLists(members, classes)}
         </Grid>
     )
 }
 
-function rendertitlesAndLists(members = [], classes) {
+function renderTitlesAndLists(members = [], classes) {
     return (
         members.map((membersListObj) => {
             return (
