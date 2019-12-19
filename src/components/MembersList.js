@@ -1,5 +1,4 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,73 +8,69 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 function MembersList(props) {
     const isRemoveEnabled = props.isRemoveEnabled;
+    const isAddEnabled = props.isAddEnabled;
     const removeFunc = props.removeFunc;
+    const addFunc = props.addFunc;
     const memberFunc = props.memberFunc;
     const list = props.list || [];
-    const useStyles = makeStyles(theme => ({
-        root: {
-          flexGrow: 1,
-          maxWidth: 752,
-        },
-        // demo: {
-        //   backgroundColor: theme.palette.background.paper,
-        // },
-        title: {
-          margin: 2
-        },
-    }));
 
-    const classes = useStyles();
     return (
         <div className='membersList'>
             <List>
-                {renderList(list, memberFunc, removeFunc, isRemoveEnabled)}
+                {renderList(list, memberFunc, removeFunc, addFunc, isRemoveEnabled, isAddEnabled)}
             </List>
         </div>
     )
 }
 
-function renderList(list = [], memberFunc, removeFunc, isRemoveEnabled = false) {
-    if (isRemoveEnabled) {
-        return (
-            list.map((member) => {
-                return renderSimpleMember(member, memberFunc);
-            })
-        )
-    }
-
+function renderList(list = [], memberFunc, removeFunc, addFunc, isRemoveEnabled = false, isAddEnabled = false) {
     return (
         list.map((member) => {
-            return renderRemovableMember(member, memberFunc, removeFunc);
+            return renderMember(member, memberFunc, isRemoveEnabled, isAddEnabled, removeFunc, addFunc);
         })
     )
 }
 
-function renderSimpleMember(member, memberFunc) {
+function renderMember(member, memberFunc, isRemoveEnabled, isAddEnabled, removeFunc, addFunc) {
     return (
         <ListItem>
             <ListItemText primary={member.name} onClick={() => {
                 memberFunc(member._id)
             }}/>
+            {addActionButtons(member, isRemoveEnabled, isAddEnabled, removeFunc, addFunc)}
         </ListItem>
     )
 }
 
-function renderRemovableMember(member, memberFunc, removeFunc) {
-    return (
-        <ListItem>
-            <ListItemText primary={member.name} onClick={() => {
-                memberFunc(member._id)
-            }}/>
-            <ListItemSecondaryAction>
-                <IconButton aria-label='delete' edge='start' onClick={() => {
-                    removeFunc(member._id)
+function addActionButtons(member, isRemoveEnabled, isAddEnabled, removeFunc, addFunc) {
+    if (!isRemoveEnabled && !isAddEnabled)
+        return;
+
+    const addButton = () => {
+        return (
+            <IconButton aria-label='delete' edge='end' onClick={() => {
+                    addFunc(member._id)
                 }}>
-                      <ClearIcon />
-                </IconButton>
-            </ListItemSecondaryAction>
-        </ListItem>
+                <ClearIcon />
+            </IconButton>
+        )
+    };
+    const removeButton = () => {
+        return (
+            <IconButton aria-label='delete' edge='end' onClick={() => {
+                removeFunc(member._id)
+            }}>
+                <ClearIcon />
+            </IconButton>
+        )
+    };
+
+    return (
+        <ListItemSecondaryAction>
+            {isAddEnabled ? addButton() : undefined}
+            {isRemoveEnabled ? removeButton() : undefined}
+        </ListItemSecondaryAction>
     )
 }
 
-export default SimpleMembersList;
+export default MembersList;

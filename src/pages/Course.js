@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-import { MDBBtn } from 'mdbreact'; // TODO: delete unnecessary
+import { MDBBtn } from 'mdbreact';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
-import Header from '../components/Header';
 import CoursesGrid from '../components/CoursesGrid';
 import MembersGrid from '../components/MembersGrid';
+import PostsGrid from '../components/PostsGrid';
+import ReviewsGrid from '../components/ReviewsGrid';
 import UseGetCoursesEffect from '../hooks/UseGetCoursesEffect';
 import UseGetCourseReviewsEffect from '../hooks/UseGetCourseReviewsEffect';
 import UseGetCoursePostsEffect from '../hooks/UseGetCoursePostsEffect';
@@ -14,7 +18,6 @@ import * as serverApi from '../helpers/server_api';
 function Course(props) {
     const user = props.user;
     const defaultCourse = props.course; // TODO: add state
-    const testCourse
     const [course, setCourse] = useState(defaultCourse);
     // const userId = props.match.id;
     const userId = '123123'; // TODO: remove
@@ -32,7 +35,6 @@ function Course(props) {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 {renderPage(userId, )}
             </div>
@@ -73,12 +75,13 @@ function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
     const isCourseOpen = course.isOpen;
 
     const [pendingRequestsIds, setPendingRequestsIds] = useState(course.pendingRequests || []);
-    const membersGrid = {
+    const membersGrid = [{
         title: 'admins',
         isRemoveEnabled: false,
+        isAddEnabled: false,
         list: admins,
         memberFunc: onMemberClick
-    };
+    }];
 
     return (    
         <div id='mainContainer'>
@@ -90,8 +93,10 @@ function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
                     <div id='description'>
                         {courseDescription}
                     </div>
+                    <div>
                         {renderMainCourseLink(mainCourseId)}
                         {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                    </div>
                     <div>
                         {renderRemoveOrRequestToJoinBtn(userId, courseId, pendingRequestsIds, setPendingRequestsIds, isCourseOpen)}
                     </div>
@@ -102,45 +107,6 @@ function renderOutsiderCourse(userId, course, subCourses = [], admins = []) {
             </div>
         </div>
     )
-}
-
-function onMemberClick() { //TODO: add logic
-
-}
-
-function onRemoveMemberClick() {
-
-}
-
-function renderAdminCourse() {
-    return (
-        <div id='mainContainer'>
-
-        </div>
-    )
-}
-
-function renderParticipateCourse() {
-    return (
-        <div id='mainContainer'>
-
-        </div>
-    )
-}
-
-function renderSuperUserCourse() {
-    return (
-        <div id='mainContainer'>
-
-        </div>
-    )
-}
-
-function getRequestButtonEnabledState(pendingRequests = [], userId, isCourseOpen = false) {
-    if (pendingRequests.includes(userId) || !isCourseOpen)
-        return false;
-    
-    return true;
 }
 
 function renderRemoveOrRequestToJoinBtn(userId, courseId, pendingRequestsIds = [], setPendingRequestsIds, isCourseOpen = false) {
@@ -181,6 +147,188 @@ function onRemoveRequestBtnClick(setPendingRequestsIds, userId, courseId, pendin
         return value !== userId;
     });
     setPendingRequestsIds(pendingRequestsIds);
+}
+
+function onMemberClick() { //TODO: add logic
+
+}
+
+function onRemoveMemberClick() { //TODO: add logic
+
+}
+
+function onRemovePendingClick() { //TODO: add logic
+
+}
+
+function onRemoveAdminClick() { //TODO: add logic
+
+}
+
+function onAddAdminClick() { //TODO: add logic
+
+}
+
+function onApprovePendingRequestClick() { //TODO: add logic
+    
+}
+
+function onAddPostClick() { //TODO: add logic
+
+}
+
+function onAddReviewClick() { //TODO: add logic
+
+}
+
+function renderAdminCourse(userId, course, subCourses = [], admins = [], participates = [], pendingRequests = [], posts = [], reviews = []) {
+    const courseName = course.name;
+    const courseDescription = course.description;
+    const coreFileLink = course.coreFile.link;
+    const mainCourseId = course.mainCourseId;
+    const fromDate = course.dates.from;
+    const toDate = course.dates.to;
+    const membersGrid = [{
+        title: 'admins',
+        isRemoveEnabled: false,
+        isAddEnabled: false,
+        list: admins,
+        memberFunc: onMemberClick
+    }, {
+        title: 'participates',
+        isRemoveEnabled: true,
+        isAddEnabled: false,
+        list: participates,
+        memberFunc: onMemberClick,
+        removeFunc: onRemoveMemberClick
+    }, {
+        title: 'pending requests',
+        isRemoveEnabled: true,
+        isAddEnabled: true,
+        list: pendingRequests,
+        memberFunc: onMemberClick,
+        removeFunc: onRemoveMemberClick,
+        addFunc: onApprovePendingRequestClick
+    }];
+
+    return (
+        <div id='mainContainer'>
+            <div id='contentContainer'>
+                <div id='courseDataContainer'>
+                    <div id='title'>
+                        {courseName}
+                    </div>
+                    <div id='description'>
+                        {courseDescription}
+                    </div>
+                    <div>
+                        {renderCoreFileLink(coreFileLink)}
+                    </div>
+                    <div>
+                        {renderMainCourseLink(mainCourseId)}
+                        {renderDatesOrSubCourses(subCourses, fromDate, toDate)}
+                    </div>
+                    <div>
+                        {renderPostsArea(posts, isAdmin)}
+                    </div>
+                    <div>
+                        {renderReviewsArea(reviews, isAdmin, isParticipate)}
+                    </div>
+                </div>
+                <div>
+                    <MembersGrid members={membersGrid}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function renderReviewsArea(reviews = [], isAdmin = false, isParticipate = false) {
+    return (
+        <div id='reviews'>
+            {renderReviewsTitle(isAdmin, isParticipate)}
+            <ReviewsGrid reviews={reviews}/>
+        </div>
+    )
+}
+
+function renderReviewsTitle(isAdmin = false, isParticipate = false) {
+    return (
+        <div id='reviewsTitle'>
+            <div>
+                Reviews 
+            </div>
+            {addReviewButton(isAdmin, isParticipate)}
+        </div>
+    )
+}
+
+function renderPostsArea(posts = [], isAdmin = false) {
+    return (
+        <div id='posts'>
+            {renderPostsTitle(isAdmin)}
+            <PostsGrid posts={posts}/>
+        </div>
+    )
+}
+
+function renderPostsTitle(isAdmin = false) {
+    return (
+        <div id='postsTitle'>
+            <div>
+                Posts 
+            </div>
+            {addPostButton(isAdmin)}
+        </div>
+    )
+}
+
+function addReviewButton(isAdmin = false, isParticipate = false) {
+    if (!isAdmin || !isParticipate)
+        return;
+
+    return (
+        <Fab size="small" color="secondary" aria-label="add">
+            <AddIcon onClick={onAddReviewClick}/>
+        </Fab>
+    )
+}
+
+function addPostButton(isAdmin = false) {
+    if (!isAdmin)
+        return;
+
+    return (
+        <Fab size="small" color="secondary" aria-label="add">
+            <AddIcon onClick={onAddPostClick}/>
+        </Fab>
+    )
+}
+
+function renderParticipateCourse() {
+    return (
+        <div id='mainContainer'>
+
+        </div>
+    )
+}
+
+function renderSuperUserCourse() {
+    return (
+        <div id='mainContainer'>
+            
+        </div>
+    )
+}
+
+function renderCoreFileLink(coreFileLink) {
+    return (
+        <div>
+            <Button variant="contained" color="primary" href={coreFileLink}>
+                Core File Link
+            </Button>
+        </div>
+    )
 }
 
 function isUserInPendingRequests(userId, pendingRequests = []) {
