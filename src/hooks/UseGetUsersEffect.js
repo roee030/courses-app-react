@@ -48,8 +48,6 @@ export default function UseGetCoursePostsEffect(usersIds = []) {
             setLoading(true);
 
             serverApi.get('users/multiple', { usersIds: usersIds }, (data) => {
-                console.log('users/multiple')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

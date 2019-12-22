@@ -33,7 +33,7 @@ function renderList(list = [], memberFunc, removeFunc, addFunc, isRemoveEnabled 
 
 function renderMember(member, memberFunc, isRemoveEnabled, isAddEnabled, removeFunc, addFunc) {
     return (
-        <ListItem>
+        <ListItem key={`list-${member.name}`}>
             <ListItemText primary={member.name} onClick={() => {
                 memberFunc(member._id)
             }}/>
@@ -44,7 +44,7 @@ function renderMember(member, memberFunc, isRemoveEnabled, isAddEnabled, removeF
 
 function addActionButtons(member, isRemoveEnabled, isAddEnabled, removeFunc, addFunc) {
     if (!isRemoveEnabled && !isAddEnabled)
-        return;
+        return (null);
 
     const addButton = () => {
         return (

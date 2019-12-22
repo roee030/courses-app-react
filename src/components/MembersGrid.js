@@ -23,7 +23,7 @@ function MembersGrid(props) {
     const classes = useStyles();
 
     if (members.length === 0)
-        return;
+        return(null);
 
     return (
         <Grid item xs={12} md={6}>
@@ -34,9 +34,9 @@ function MembersGrid(props) {
 
 function renderTitlesAndLists(members = [], classes) {
     return (
-        members.map((membersListObj) => {
+        members.map((membersListObj, i) => {
             return (
-                <div>
+                <div key={`member-${i}`}>
                     {renderTitle(membersListObj.title, classes)}
                     {renderList(membersListObj.isRemoveEnabled, membersListObj.list, membersListObj.removeFunc, membersListObj.memberFunc)}
                 </div>                

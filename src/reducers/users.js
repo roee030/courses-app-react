@@ -12,7 +12,7 @@ export function updateMyUser(currentState, action) {
             return addParicipatePendingUser;
         case USER_ACTIONS.REMOVE_MY_PARTICIPATE_PENDING:
             const removeParicipatePendingUser = {...currentState};
-            removeParicipatePendingUser.courses.participate.pending.filter(id => id === action.courseId);
+            removeParicipatePendingUser.courses.participate.pending.filter(id => id !== action.courseId);
             return removeParicipatePendingUser;
         default:
             throw 'wrong action type';
@@ -26,7 +26,7 @@ export function updateUsers(currentState, action) {
             return { ...currentState, [action.user._id]: action.user };
         case USER_ACTIONS.ADD_USERS:
             const addUsersObj = {};
-            action.courses.forEach(element => {
+            action.users.forEach(element => {
                 addUsersObj[element._id] = element;
             });
             return { ...currentState, ...addUsersObj};
@@ -40,11 +40,11 @@ export function updateUsers(currentState, action) {
             return addParicipateApproveUser;
         case USER_ACTIONS.REMOVE_PARTICIPATE_PENDING:
             const removeParicipatePendingUser = {...currentState}[action.id];
-            removeParicipatePendingUser.courses.participate.pending.filter(id => id === action.courseId);
+            removeParicipatePendingUser.courses.participate.pending.filter(id => id !== action.courseId);
             return removeParicipatePendingUser;
         case USER_ACTIONS.REMOVE_PARTICIPATE_APPROVE:
             const removeParicipateApproveUser = {...currentState}[action.id];
-            removeParicipateApproveUser.courses.participate.approve.filter(id => id === action.courseId);
+            removeParicipateApproveUser.courses.participate.approve.filter(id => id !== action.courseId);
             return removeParicipateApproveUser;
         default:
             throw 'wrong action type';

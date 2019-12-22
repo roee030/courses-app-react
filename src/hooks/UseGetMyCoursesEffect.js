@@ -48,8 +48,6 @@ export default function UseGetMyCoursesEffect() {
             setLoading(true);
 
             serverApi.get('courses/mine', {}, (data) => {
-                console.log('courses/mine')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

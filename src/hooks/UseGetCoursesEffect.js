@@ -22,8 +22,6 @@ export default function UseGetCoursesEffect(coursesIds = []) {
             setLoading(true);
 
             serverApi.get('courses/multiple', { coursesIds: coursesIds }, (data) => {
-                console.log('courses/multiple')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

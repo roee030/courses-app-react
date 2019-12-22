@@ -28,8 +28,6 @@ export default function UseGetCourseReviewsEffect(courseId) {
             setLoading(true);
 
             serverApi.get('courses/reviews', { courseId: courseId }, (data) => {
-                console.log('courses/reviews')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

@@ -13,7 +13,8 @@ import OutsiderCourse from './OutsiderCourse';
 
 function Course(props) {
     const context = useContext(AppContext);
-    const courseId = props.match.id;
+    const courseId = props.match.params.id;
+    
     const [users, dispatchUsers] = useReducer(reducers.users.updateUsers, context.users);
     const [myUser, dispatchMyUser] = useReducer(reducers.users.updateUsers, context.myUser);
     const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
@@ -25,8 +26,9 @@ function Course(props) {
         serverApi.get('courses', { courseId: courseId }, res => { // TODO: add 500 page if failed
             const data = res ? res.data : undefined;
             
-            if (data && data.course)
+            if (data && data.course) {
                 dispatchCourses(actions.courses.addCourse(data.course));
+            }
         });
 
         return renderLoadingPage();
@@ -56,55 +58,20 @@ function Course(props) {
     const posts = generalUtils.getValuesFromStateByArray(postsState, postsIds);
     const reviews = generalUtils.getValuesFromStateByArray(reviewsState, reviewsIds);
 
+    const newContext = {...context, users: users, myUser: myUser, courses: courses, posts: posts, reviews};
     return (
-        <div>
+        <AppContext.Provider value={newContext}>
             <div>
-                {renderPage(myUser, course, subCourses, admins, participates, pendingRequests, posts, reviews)}
+                <div>
+                    {renderPage(courseId, myUser, subCourses, admins, participates, pendingRequests, posts, reviews)}
+                </div>
             </div>
-        </div>
+        </AppContext.Provider>
     )
 }
 
-function loadData(courseId, dispatchUsers, dispatchCourses, dispatchPosts, dispatchReviews,  totalMissingUsers = [], missingPosts = [], missingReviews = [], missingCourses = []) {
-    if (totalMissingUsers.length > 0) {
-        serverApi.get('users/multiple', { usersIds: totalMissingUsers }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.users)
-                dispatchUsers(actions.users.addUsers(data.users));
-        });
-    }
-
-    if (missingPosts.length > 0) {
-        serverApi.get('courses/posts', { courseId: courseId }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.posts)
-                dispatchPosts(actions.courses.addPosts(data.posts));
-        });
-    }
-
-    if (missingReviews.length > 0) {
-        serverApi.get('courses/reviews', { courseId: courseId }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.reviews)
-                dispatchReviews(actions.courses.addReviews(data.reviews));
-        });
-    }
-
-    if (missingCourses.length > 0) {
-        serverApi.get('courses/multiple', { coursesIds: missingCourses }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.courses)
-                dispatchCourses(actions.courses.addCourses(data.courses));
-        });
-    }
-}
-
 function renderPage(courseId, myUser, subCourses, admins, participates, pendingRequests, posts, reviews) {
-    if (!myUser) {
+    if (!myUser._id) {
         return (
             <LoggedOutCourse courseId={courseId} subCourses={subCourses} />
         )
@@ -141,14 +108,17 @@ function renderPage(courseId, myUser, subCourses, admins, participates, pendingR
         )
     }
     else if (isParticipate(myUser._id, participates)) {
-        <ParticipateCourse courseId={courseId} 
-        subCourses={subCourses} 
-        admins={admins} 
-        participates={participates} 
-        posts={posts} 
-        onMemberClick={onMemberClick} 
-        onRemoveMemberClick={onRemoveMemberClick} 
-        onAddPostClick={onAddPostClick} />
+        return (
+            <ParticipateCourse courseId={courseId} 
+            subCourses={subCourses} 
+            admins={admins} 
+            participates={participates} 
+            posts={posts} 
+            onMemberClick={onMemberClick} 
+            onRemoveMemberClick={onRemoveMemberClick} 
+            onAddPostClick={onAddPostClick} 
+            onAddReviewClick={onAddReviewClick}/>
+        )
     }
 
     return (
@@ -173,11 +143,7 @@ function isAdmin(userId, admins = []) {
 }
 
 function isParticipate(userId, participates = []) {
-    const isParticipate = participates.some((participate) => {
-        return participate._id === userId;
-    });
-
-    return isParticipate
+    return participates.some(participate => participate._id === userId);
 }
 
 function onMemberClick() { //TODO: add logic
@@ -210,6 +176,44 @@ function onAddPostClick() { //TODO: add logic
 
 function onAddReviewClick() { //TODO: add logic
 
+}
+
+function loadData(courseId, dispatchUsers, dispatchCourses, dispatchPosts, dispatchReviews,  totalMissingUsers = [], missingPosts = [], missingReviews = [], missingCourses = []) {
+    if (totalMissingUsers.length > 0) {
+        serverApi.get('users/multiple', { usersIds: totalMissingUsers }, res => {
+            const data = res ? res.data : undefined;
+            
+            if (data && data.users)
+                dispatchUsers(actions.users.addUsers(data.users));
+        });
+    }
+
+    if (missingPosts.length > 0) {
+        serverApi.get('courses/posts', { courseId: courseId }, res => {
+            const data = res ? res.data : undefined;
+
+            if (data && data.posts)
+                dispatchPosts(actions.courses.addPosts(data.posts));
+        });
+    }
+
+    if (missingReviews.length > 0) {
+        serverApi.get('courses/reviews', { courseId: courseId }, res => {
+            const data = res ? res.data : undefined;
+
+            if (data && data.reviews)
+                dispatchReviews(actions.courses.addReviews(data.reviews));
+        });
+    }
+
+    if (missingCourses.length > 0) {
+        serverApi.get('courses/multiple', { coursesIds: missingCourses }, res => {
+            const data = res ? res.data : undefined;
+
+            if (data && data.courses)
+                dispatchCourses(actions.courses.addCourses(data.courses));
+        });
+    }
 }
 
 export default Course;

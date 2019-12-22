@@ -28,8 +28,6 @@ export default function UseGetUserReviewsEffect(courseId, pupilId) {
             setLoading(true);
 
             serverApi.get('users/reviews', { courseId: courseId, pupilId: pupilId }, (data) => {
-                console.log('users/reviews')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

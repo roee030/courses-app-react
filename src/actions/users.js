@@ -15,7 +15,7 @@ export function addUser(user) {
 }
 
 export function addUsers(users) {
-    return { type: ACTION_NAMES.ADD_USERS, user: users };
+    return { type: ACTION_NAMES.ADD_USERS, users: users };
 }
 
 export function addMyUser(user) {

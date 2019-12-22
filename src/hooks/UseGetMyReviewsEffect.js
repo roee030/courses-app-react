@@ -28,9 +28,6 @@ export default function UseGetMyReviewsEffect() {
             setLoading(true);
 
             serverApi.get('users/myReviews', {}, (data) => {
-                console.log('users/myReviews');
-                console.log(data);
-                
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

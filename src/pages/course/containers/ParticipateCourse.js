@@ -12,7 +12,8 @@ export default function ParticipateCourse({ courseId, admins = [],
                                             posts = [],
                                             onMemberClick,
                                             onRemoveMemberClick,
-                                            onAddPostClick }) {
+                                            onAddPostClick,
+                                            onAddReviewClick }) {
     const context = useContext(AppContext);
     const course = context.courses[courseId];
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;

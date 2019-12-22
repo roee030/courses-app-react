@@ -46,7 +46,7 @@ function renderExpansionPanels(title, expansion, classes) {
 
 function createExpansionPanel(title, courses = [], classes) {
     if (courses.length === 0)
-        return;
+        return (null);
 
     
     return (

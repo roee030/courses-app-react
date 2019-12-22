@@ -26,8 +26,6 @@ export default function UseGetCoursePostsEffect(courseId) {
             setLoading(true);
 
             serverApi.get('courses/posts', { courseId: courseId }, (data) => {
-                console.log('courses/posts')
-                console.log(data)
                 setResult(placeHolderData);
                 setLoading(null);
                 // setResult(data[serverModule])

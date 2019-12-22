@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export default function AddPostButton({ isAdmin = false, onAddPostClick }) {
     if (!isAdmin)
-        return;
+        return (null);
 
     return (
         <Fab size="small" color="secondary" aria-label="add">

@@ -33,8 +33,6 @@ export default function useSearchEffect(serverModule = 'courses', nameString = '
 
             serverApi.get(fullModule, { name: nameString }, (res) => {
                 const data = res ? res.data : undefined;
-                console.log(fullModule)
-                console.log(res)
                 
                 if (data && data.courses && data.courses.length > 0)
                     setResult(data.courses);

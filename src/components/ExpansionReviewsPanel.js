@@ -22,8 +22,6 @@ const useStyles = makeStyles(() => ({
 function ExpansionReviewsPanel(props) {
     const classes = useStyles();
     const reviews = props.reviews || [];
-    console.log('revvvvvvv');
-    console.log(reviews);
     
     return (
         <div className={classes.root}>
@@ -34,7 +32,7 @@ function ExpansionReviewsPanel(props) {
 
 function renderExpansionPanels(title, reviews = [], classes) {
     if (reviews.length === 0)
-        return;
+        return (null);
 
     return (
         <ExpansionPanel>

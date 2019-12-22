@@ -64,7 +64,7 @@ function test(onLoginClickFunc, isLoggedIn) {
 }
 function renderPopUp(popUp,setPopUp) {
     if (!popUp)
-        return;
+        return (null);
 
     if(popUp === "register")
     {

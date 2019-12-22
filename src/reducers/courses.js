@@ -5,7 +5,7 @@ const COURSE_ACTIONS = actions.courses.ACTION_NAMES;
 export function updatePosts(currentState, action) {
     switch (action.type) {
         case COURSE_ACTIONS.ADD_POST:
-            return { ...currentState, [action.id]: action.post };
+            return { ...currentState, [action.post._id]: action.post };
         case COURSE_ACTIONS.ADD_POSTS:
             const addPostsObj = {};
             action.courses.forEach(element => {
@@ -20,7 +20,7 @@ export function updatePosts(currentState, action) {
 export function updateReviews(currentState, action) {
     switch (action.type) {
         case COURSE_ACTIONS.ADD_REVIEW:
-            return { ...currentState, [action.id]: action.review };
+            return { ...currentState, [action.review._id]: action.review };
         case COURSE_ACTIONS.ADD_REVIEWS:
             const addReviewsObj = {};
             action.courses.forEach(element => {
@@ -35,7 +35,7 @@ export function updateReviews(currentState, action) {
 export function updateCourses(currentState, action) {
     switch (action.type) {
         case COURSE_ACTIONS.ADD_COURSE:
-            return { ...currentState, [action.id]: action.course };
+            return { ...currentState, [action.course._id]: action.course };
         case COURSE_ACTIONS.ADD_COURSES:
             const addCoursesObj = {};
             action.courses.forEach(element => {
@@ -68,27 +68,27 @@ export function updateCourses(currentState, action) {
             return addSubCourse;
         case COURSE_ACTIONS.REMOVE_ADMIN_ID:
             const removeAdminCourse = {...currentState}[action.id];
-            removeAdminCourse.admins.filter(id => id === action.userId);
+            removeAdminCourse.admins.filter(id => id !== action.userId);
             return removeAdminCourse;
         case COURSE_ACTIONS.REMOVE_PARTICIPATE_ID:
             const removeParticipateCourse = {...currentState}[action.id];
-            removeParticipateCourse.filter(id => id === action.userId);
+            removeParticipateCourse.filter(id => id !== action.userId);
             return removeParticipateCourse;
         case COURSE_ACTIONS.REMOVE_PENDING_REQUEST:
             const removePendingRequestCourse = {...currentState}[action.id];
-            removePendingRequestCourse.pendingRequests.filter(id => id === action.userId);
+            removePendingRequestCourse.pendingRequests.filter(id => id !== action.userId);
             return removePendingRequestCourse;
         case COURSE_ACTIONS.REMOVE_POST_ID:
             const removePostCourse = {...currentState}[action.id];
-            removePostCourse.posts.filter(id => id === action.postId);
+            removePostCourse.posts.filter(id => id !== action.postId);
             return removePostCourse;
         case COURSE_ACTIONS.REMOVE_REVIEW_ID:
             const removeReviewCourse = {...currentState}[action.id];
-            removeReviewCourse.reviews.filter(id => id === action.reviewId);
+            removeReviewCourse.reviews.filter(id => id !== action.reviewId);
             return removeReviewCourse;
         case COURSE_ACTIONS.REMOVE_SUBCOURSE_ID:
             const removeSubCourse = {...currentState}[action.id];
-            removeSubCourse.subCourses.filter(id => id === action.subCourseId);
+            removeSubCourse.subCourses.filter(id => id !== action.subCourseId);
             return removeSubCourse;
         default:
             throw 'wrong action type';
