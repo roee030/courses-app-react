@@ -1,15 +1,15 @@
 import React , {useState , createContext} from 'react';
 
 const all= {
-    user: 'aaa',
-    courses: {
-
-    },
-
+    users: {},
+    courses: {},
+    posts: {},
+    reviews: {},
+    myUser: {}
 }
 
-const UserContext = createContext(all);
-export default UserContext;
+const AppContext = createContext(all);
+export default AppContext;
 
 
 // export default function UserManagement(props)
