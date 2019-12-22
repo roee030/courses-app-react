@@ -7,7 +7,7 @@ function ReviewsGrid(props) {
 
     return (
         <Grid item xs={12}>
-            <Grid container justify="center" spacing={5}>
+            <Grid container justify="center" spacing={8}>
                 {
                     reviews.map((item, i) => {
                         return (

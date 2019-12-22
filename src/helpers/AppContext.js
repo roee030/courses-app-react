@@ -8,8 +8,8 @@ const all= {
     myUser: {
         _id : '5df9e6344a942df70da6f397',
         name : "asaf",
-        personalNumber : 6044556,
-        phoneNumber : 544322977,
+        personalNumber : 6000000,
+        phoneNumber : 500000000,
         courses : {
             admin : {
                 approved : [],
@@ -20,7 +20,7 @@ const all= {
                 pending : []
             }
         },
-        isSuperUser : false,
+        isSuperUser : true,
         createdAt : "Wed Dec 18 2019 10:40:57 GMT+0200 (Israel Standard Time)"
     }
 }
