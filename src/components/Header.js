@@ -1,12 +1,11 @@
   
-import React, { useState } from 'react'
+import React, { useState, useReducer, useContext } from 'react'
 import { Link, useHistory } from "react-router-dom";
 import './Header.css'
 import CoursesGrid from './CoursesGrid';
 import { MDBNavbar, MDBBtn } from "mdbreact";
 
 // import Navbar from '../components/Navbar';
-import Header from './Header';
 import SearchBar from './SearchBar';
 import Title from './Title';
 import * as serverApi from '../helpers/server_api';
@@ -14,8 +13,13 @@ import UseSearchEffect from '../hooks/UseSearchEffect';
 import RegisterPopUp from './RegisterPopUp';
 import LoginPopUp from './LoginPopUp';
 import ResetPopUp from './ResetPopUp';
+import AppContext from '../store/AppContext';
+import reducers from '../store/reducers';
+import actions from '../store/actions';
 
-export default function Home() {
+export default function Header() {
+    const context = useContext(AppContext);
+    const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
     const [popUp, setPopUp] = useState(null);
     const [showRegisterPopUp, setShowRegisterPopUp] = useState(false);
     const [showLoginPopUp, setShowLoginPopUp] = useState(false);
@@ -33,7 +37,7 @@ export default function Home() {
         {addButtons(isLoggedIn,setPopUp)}   
 
        </MDBNavbar>
-            {renderPopUp(popUp,setPopUp)}
+            {renderPopUp(popUp, setPopUp, dispatchMyUser)}
         </div>
     );
 }
@@ -62,7 +66,8 @@ function test(onLoginClickFunc, isLoggedIn) {
         onLoginClickFunc(!isLoggedIn);
     }
 }
-function renderPopUp(popUp,setPopUp) {
+
+function renderPopUp(popUp, setPopUp, dispatchMyUser) {
     if (!popUp)
         return (null);
 
@@ -75,7 +80,7 @@ function renderPopUp(popUp,setPopUp) {
     else if ( popUp === "login")
     {
         return(
-            <LoginPopUp popUp={popUp} setPopUp={setPopUp}/>
+            <LoginPopUp dispatchMyUser={dispatchMyUser} setPopUp={setPopUp}/>
         )
     }
     else if (popUp === "reset")

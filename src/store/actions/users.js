@@ -6,8 +6,8 @@ export const ACTION_NAMES = {
     ADD_MY_PARTICIPATE_PENDING: 'ADD_MY_PARTICIPATE_PENDING',
     REMOVE_PARTICIPATE_PENDING: 'REMOVE_PARTICIPATE_PENDING',
     REMOVE_MY_PARTICIPATE_PENDING: 'REMOVE_MY_PARTICIPATE_PENDING',
-    ADD_PARTICIPATE_APPROVE: 'ADD_PARTICIPATE_APPROVE',
-    REMOVE_PARTICIPATE_APPROVE: 'REMOVE_PARTICIPATE_APPROVE'
+    ADD_PARTICIPATE_APPROVED: 'ADD_PARTICIPATE_APPROVED',
+    REMOVE_PARTICIPATE_APPROVED: 'REMOVE_PARTICIPATE_APPROVED'
 }
 
 export function addUser(user) {
@@ -30,8 +30,8 @@ export function addMyParticipatePending(courseId) {
     return { type: ACTION_NAMES.ADD_MY_PARTICIPATE_PENDING, courseId: courseId };
 }
 
-export function addParticipateApprove(userId, courseId) {
-    return { type: ACTION_NAMES.ADD_PARTICIPATE_APPROVE, id: userId, courseId: courseId };
+export function addParticipateApproved(userId, courseId) {
+    return { type: ACTION_NAMES.ADD_PARTICIPATE_APPROVED, id: userId, courseId: courseId };
 }
 
 export function removeParticipatePending(userId, courseId) {
@@ -42,6 +42,6 @@ export function removeMyParticipatePending(courseId) {
     return { type: ACTION_NAMES.REMOVE_MY_PARTICIPATE_PENDING, courseId: courseId };
 }
 
-export function removeParticipateApprove(userId, courseId) {
-    return { type: ACTION_NAMES.REMOVE_PARTICIPATE_APPROVE, id: userId, courseId: courseId };
+export function removeParticipateApproved(userId, courseId) {
+    return { type: ACTION_NAMES.REMOVE_PARTICIPATE_APPROVED, id: userId, courseId: courseId };
 }

@@ -1,11 +1,11 @@
 import React, { useContext, useReducer } from 'react';
-import AppContext from '../../../helpers/AppContext';
+import AppContext from '../../../store/AppContext';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
 import MembersGrid from '../../../components/MembersGrid';
 import CancelOrRequestToJoinButton from '../presentials/CancelOrRequestToJoinButton';
-import reducers from '../../../reducers';
-import actions from '../../../actions';
+import reducers from '../../../store/reducers';
+import actions from '../../../store/actions';
 import * as serverApi from '../../../helpers/server_api';
 
 export default function OutsiderCourse({ courseId, subCourses = [], admins = [], onMemberClick }) {

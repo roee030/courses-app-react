@@ -1,7 +1,6 @@
 import React , {useContext} from 'react';
 import { MDBCol, MDBIcon } from "mdbreact";
 import "./SearchBar.css";
-import {UserContext} from '../helpers/AppContext';
 export function SearchPage(props) {
   // const [userState, setUserState] = useContext(UserContext)
     return (

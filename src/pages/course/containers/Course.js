@@ -1,9 +1,9 @@
 import React, { useState, useContext, useReducer } from 'react';
 import { Link } from "react-router-dom";
 import * as serverApi from '../../../helpers/server_api';
-import AppContext from '../../../helpers/AppContext';
-import reducers from '../../../reducers';
-import actions from '../../../actions';
+import AppContext from '../../../store/AppContext';
+import reducers from '../../../store/reducers';
+import actions from '../../../store/actions';
 import * as generalUtils from '../../../helpers/general';
 import LoggedOutCourse from './LoggedOutCourse';
 import SuperUserCourse from './SuperUserCourse';
@@ -100,7 +100,7 @@ function renderPage(courseId, myUser, subCourses, admins, participates, pendingR
             reviews={reviews} 
             pendingRequests={pendingRequests} 
             onMemberClick={onMemberClick} 
-            onApprovePendingRequestClick={onApprovePendingRequestClick} 
+            onApprovedPendingRequestClick={onApprovedPendingRequestClick} 
             onAddPostClick={onAddPostClick} 
             onAddReviewClick={onAddReviewClick} 
             onRemoveMemberClick={onRemoveMemberClick} 
@@ -166,7 +166,7 @@ function onAddAdminClick() { //TODO: add logic
 
 }
 
-function onApprovePendingRequestClick() { //TODO: add logic
+function onApprovedPendingRequestClick() { //TODO: add logic
     
 }
 
@@ -182,7 +182,7 @@ function loadData(courseId, dispatchUsers, dispatchCourses, dispatchPosts, dispa
     if (totalMissingUsers.length > 0) {
         serverApi.get('users/multiple', { usersIds: totalMissingUsers }, res => {
             const data = res ? res.data : undefined;
-            
+
             if (data && data.users)
                 dispatchUsers(actions.users.addUsers(data.users));
         });

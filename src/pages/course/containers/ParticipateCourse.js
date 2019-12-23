@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AppContext from '../../../helpers/AppContext';
+import AppContext from '../../../store/AppContext';
 import MembersGrid from '../../../components/MembersGrid';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';

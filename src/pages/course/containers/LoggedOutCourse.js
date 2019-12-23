@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
-import AppContext from '../../../helpers/AppContext';
+import AppContext from '../../../store/AppContext';
 
 export default function LoggedOutCourse({ courseId, subCourses = [] }) {
     const context = useContext(AppContext);

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import AppContext from '../../../helpers/AppContext';
+import AppContext from '../../../store/AppContext';
 import MembersGrid from '../../../components/MembersGrid';
 import CoreFileLink from '../presentials/CoreFileLink';
 import MainCourseLink from '../presentials/MainCourseLink';

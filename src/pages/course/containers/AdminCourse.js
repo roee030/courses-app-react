@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AppContext from '../../../helpers/AppContext';
+import AppContext from '../../../store/AppContext';
 import MembersGrid from '../../../components/MembersGrid';
 import ReviewsArea from './ReviewsArea';
 import DatesOrSubCourses from './DatesOrSubCourses';
@@ -17,7 +17,7 @@ export default function AdminCourse({ courseId,
                                             onMemberClick,
                                             onRemoveMemberClick,
                                             onRemovePendingClick,
-                                            onApprovePendingRequestClick,
+                                            onApprovedPendingRequestClick,
                                             onAddPostClick,
                                             onAddReviewClick }) {
     const context = useContext(AppContext);
@@ -45,7 +45,7 @@ export default function AdminCourse({ courseId,
         list: pendingRequests,
         memberFunc: onMemberClick,
         removeFunc: onRemovePendingClick,
-        addFunc: onApprovePendingRequestClick
+        addFunc: onApprovedPendingRequestClick
     }];
 
     return (

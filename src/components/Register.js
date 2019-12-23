@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput,MDBIcon,MDBAlert  } from 'mdbreact';
-import Title from '../components/Title';
+import Title from './Title';
 import './Register.css'
 import { Link } from "react-router-dom";
 import * as Server_API from '../helpers/server_api';

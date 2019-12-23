@@ -1,6 +1,6 @@
 import React from 'react'
 import './css/PopUp.css';
-import Register from '../pages/Register'
+import Register from './Register'
 export default function RegisterPopUp(props) {
     return (
         <div className='popup'>
