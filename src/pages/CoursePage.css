@@ -1,0 +1,17 @@
+#courseCoverPhoto
+{
+    background-image: url('../components/coverPhoto.png');
+    height: 50vh;
+    width: 97vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+}
+#CourseName
+{
+    position: absolute; 
+    left: 0; 
+    top: 10%; 
+}

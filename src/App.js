@@ -7,7 +7,7 @@ import User from './pages/User';
 import Signin from './pages/Sign-in';
 import Register from './pages/Register';
 import ErrorPage from './components/ErrorPage';
-// import Course from './pages/Course';
+import Course from './pages/CoursePage';
 import './App.css';
 import { MDBContainer } from 'mdbreact';
 import Footer from './components/Footer';
@@ -25,7 +25,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/user" component={User}/>
-        {/* <Route exact path="/courses/:id" component={Course}/> */}
+        <Route exact path="/courses/" component={Course}/>
+
+        {/*<Route exact path="/courses/:id" component={Course}/>*/}
         <Route exact path="/log-in" component={Signin}/>
         <Route exact path="/register" component={Register}/>
         <Route exact path="/resetpassword" component={ResetPassword}/>

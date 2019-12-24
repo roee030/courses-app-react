@@ -1,0 +1,25 @@
+.HomeCoverPhoto
+{
+    background-image: url('../components/coverPhoto.png');
+    height: 50vh;
+    width: 97vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.HomeSearchTool
+{
+    position: absolute; 
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, 0);
+    width: 100%;
+}
+@media (max-width: 992px) { 
+    .HomeCoverPhoto
+    {
+        background-image: url('./coverPhoto_mobile.png');
+
+    }
+ }

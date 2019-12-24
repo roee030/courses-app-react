@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import CoursesGrid from '../components/CoursesGrid';
 import useSearchEffect from '../hooks/UseSearchEffect';
 import UserContext from '../helpers/UserContext';
-
+import "./Home.css";
 export default function Home() {
     const [query, setQuery] = useState('');
     const [courses, isLoading] = useSearchEffect('courses', query);
@@ -12,9 +12,12 @@ export default function Home() {
     
     return (
         <div>
-            <Title title={"Search course"}/>
-            <SearchBar onChange={searchString => setQuery(searchString)}/>
-            
+            <div className="HomeCoverPhoto">
+                <div className="HomeSearchTool">
+                    <Title title={"Search course"}/>
+                    <SearchBar onChange={searchString => setQuery(searchString)}/>
+                </div>
+            </div>
             <div>
                 <CoursesGrid courses={courses}/>
             </div>
