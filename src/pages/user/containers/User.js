@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
-import CoursesGrid from '../components/CoursesGrid';
-import Header from '../components/Header';
-import ExpansionCoursesPanel from '../components/ExpansionCoursesPanel';
-import ExpansionReviewsPanel from '../components/ExpansionReviewsPanel';
-import UserInfo from '../components/UserInfo';
-import UseGetCoursesEffect from '../hooks/UseGetCoursesEffect';
-import UseGetUserReviewsEffect from '../hooks/UseGetUserReviewsEffect';
-import UseGetMyCoursesEffect from '../hooks/UseGetMyCoursesEffect';
-import UseGetMyReviewsEffect from '../hooks/UseGetMyReviewsEffect';
+import React, { useContext } from 'react'
+import CoursesGrid from '../../../components/CoursesGrid';
+import Header from '../../../components/Header';
+import ExpansionCoursesPanel from '../../../components/ExpansionCoursesPanel';
+import ExpansionReviewsPanel from '../../../components/ExpansionReviewsPanel';
+import UserInfo from '../../../components/UserInfo';
+import UseGetCoursesEffect from '../../../hooks/UseGetCoursesEffect';
+import UseGetUserReviewsEffect from '../../../hooks/UseGetUserReviewsEffect';
+import UseGetMyCoursesEffect from '../../../hooks/UseGetMyCoursesEffect';
+import UseGetMyReviewsEffect from '../../../hooks/UseGetMyReviewsEffect';
+import AppContext from '../../../store/AppContext';
 
 function User(props) {
+    const context = useContext(AppContext);
     const user = props.user;
     const showingUser = props.showingAccount;
     const course = props.course;

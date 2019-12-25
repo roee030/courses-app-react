@@ -26,9 +26,8 @@ function Course(props) {
         serverApi.get('courses', { courseId: courseId }, res => { // TODO: add 500 page if failed
             const data = res ? res.data : undefined;
             
-            if (data && data.course) {
+            if (data && data.course)
                 dispatchCourses(actions.courses.addCourse(data.course));
-            }
         });
 
         return renderLoadingPage();

@@ -24,7 +24,7 @@ export function addCourse(course) {
 }
 
 export function addCourses(courses) {
-    return { type: ACTION_NAMES.ADD_COURSE, courses };
+    return { type: ACTION_NAMES.ADD_COURSES, courses };
 }
 
 export function addPendingRequest(courseId, userId) {

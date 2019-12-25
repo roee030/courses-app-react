@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from './components/Header';
 import Home from './pages/Home';
-import User from './pages/User';
+import User from './pages/user/containers/User';
 // import Signin from './components';
 // import Register from './pages/Register';
 import ErrorPage from './components/ErrorPage';
