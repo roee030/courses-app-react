@@ -68,6 +68,6 @@ function buildQueryStrings(args) {
 }
 
 function checkHeaderAndSaveAccesToken(response) {
-    if (response && response.header && response.header.authorization)
-        accesToken = response.header.authorization;
+    if (response && response.headers && response.headers.authorization)
+        accesToken = response.headers.authorization;
 }

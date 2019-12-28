@@ -1,33 +1,38 @@
-import React, { useContext } from 'react'
-import CoursesGrid from '../../../components/CoursesGrid';
-import Header from '../../../components/Header';
+import React from 'react'
 import ExpansionCoursesPanel from '../../../components/ExpansionCoursesPanel';
 import ExpansionReviewsPanel from '../../../components/ExpansionReviewsPanel';
+import AddReviewButton from '../../../components/AddReviewButton';
 import UserInfo from '../../../components/UserInfo';
 import UseGetCoursesEffect from '../../../hooks/UseGetCoursesEffect';
 import UseGetUserReviewsEffect from '../../../hooks/UseGetUserReviewsEffect';
 import UseGetMyCoursesEffect from '../../../hooks/UseGetMyCoursesEffect';
 import UseGetMyReviewsEffect from '../../../hooks/UseGetMyReviewsEffect';
-import AppContext from '../../../store/AppContext';
+import UseGetUserEffect from '../../../hooks/UseGetUserEffect';
 
-function User(props) {
-    const context = useContext(AppContext);
-    const user = props.user;
-    const showingUser = props.showingAccount;
-    const course = props.course;
+function User({ match, myUser }) {
+    const userId = match.params.id;
 
-    // const isMyAccount = props.isMyAccount;
-    // const isSuperUser = account.isSuperUser;
-    // const [myAdminCourses, setMyAdminCourses] = useState([]);
-    // const [myParticipateCourses, setMyParticipateCourses] = useState([]);
-    
-    if (isShowingUserIsTheCurrentUser(user, showingUser))
+    if (isShowingUserIsTheCurrentUser(myUser._id, userId))
         return renderMyUser();
 
-    else if (isPupilOfTheUser(user, showingUser))
-        return renderMyPupil();
+    const [showingUser, isShowingUserLoading] = UseGetUserEffect(userId);
 
-    return renderAnyUser();
+    if (!showingUser._id)
+        return renderLoadingPage();
+
+    const relatedAdminCourseId = getRelatedAdminCourseId(myUser, showingUser);
+    if (relatedAdminCourseId)
+        return renderMyPupil(showingUser, relatedAdminCourseId);
+
+    return renderAnyUser(showingUser);
+}
+
+function renderLoadingPage() {
+    return (
+        <div>
+            Loading
+        </div>
+    )
 }
 
 function renderMyUser() {
@@ -36,7 +41,6 @@ function renderMyUser() {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
@@ -46,19 +50,9 @@ function renderMyUser() {
     )
 }
 
-function renderMyPupil() {
-    const coursesTest = {
-        admin: {
-            approved: [],
-            pending: []
-        },
-        participate: {
-            approved: [],
-            pending: []
-        }
-    };
-    const [adminCourses, isAdminCoursesLoading] = UseGetCoursesEffect(coursesTest.admin.approved);
-    const [participateCourses, isParticipateCoursesLoading] = UseGetCoursesEffect(coursesTest.participate.approved);
+function renderMyPupil(showingUser, courseId) {
+    const [adminCourses, isAdminCoursesLoading] = UseGetCoursesEffect(showingUser.courses.admin.approved);
+    const [participateCourses, isParticipateCoursesLoading] = UseGetCoursesEffect(showingUser.courses.participate.approved);
     const courses = {
         admin: {
             approved: adminCourses
@@ -67,33 +61,23 @@ function renderMyPupil() {
             approved: participateCourses
         }
     };
-    const [reviews, isReviewsLoading] = UseGetUserReviewsEffect('123', '123');
+    const [reviews, isReviewsLoading] = UseGetUserReviewsEffect(courseId, showingUser._id);
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
+                <AddReviewButton isAdmin={true} onAddReviewClick={onAddReviewClick} />
                 <ExpansionReviewsPanel reviews={reviews}/>
             </div>
         </div>
     )
 }
 
-function renderAnyUser() {
-    const coursesTest = {
-        admin: {
-            approved: [],
-            pending: []
-        },
-        participate: {
-            approved: [],
-            pending: []
-        }
-    };
-    const [adminCourses, isAdminCoursesLoading] = UseGetCoursesEffect(coursesTest.admin.approved);
-    const [participateCourses, isParticipateCoursesLoading] = UseGetCoursesEffect(coursesTest.participate.approved);
+function renderAnyUser(showingUser) {
+    const [adminCourses, isAdminCoursesLoading] = UseGetCoursesEffect(showingUser.courses.admin.approved);
+    const [participateCourses, isParticipateCoursesLoading] = UseGetCoursesEffect(showingUser.courses.participate.approved);
     const courses = {
         admin: {
             approved: adminCourses
@@ -105,7 +89,6 @@ function renderAnyUser() {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
@@ -114,12 +97,27 @@ function renderAnyUser() {
     )
 }
 
-function isShowingUserIsTheCurrentUser(user, showingUser) { // TODO: add logic
-    return true;
+function onAddReviewClick() {// TODO add logic
+
 }
 
-function isPupilOfTheUser(user, showingUser) { // TODO: add logic
+function isShowingUserIsTheCurrentUser(myUserId, showingUserId) {
+    if (myUserId === showingUserId)
+        return true;
+
     return false;
+}
+
+function getRelatedAdminCourseId(myUser, showingUser) {
+    const myAdminCourses = myUser.courses.admin.approved || [];
+    const showingUserCourses = showingUser.courses.participate.approved || [];
+
+    for (let i = 0; i < myAdminCourses.length; i++) {
+        if (showingUserCourses.includes(myAdminCourses[i]))
+            return myAdminCourses[i];
+    }
+
+    return;
 }
 
 export default User;

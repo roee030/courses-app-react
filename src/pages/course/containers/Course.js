@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { Link } from "react-router-dom";
 import * as serverApi from '../../../helpers/server_api';
 import AppContext from '../../../store/AppContext';
@@ -14,9 +14,9 @@ import OutsiderCourse from './OutsiderCourse';
 function Course(props) {
     const context = useContext(AppContext);
     const courseId = props.match.params.id;
+    const myUser = props.myUser;
     
     const [users, dispatchUsers] = useReducer(reducers.users.updateUsers, context.users);
-    const [myUser, dispatchMyUser] = useReducer(reducers.users.updateUsers, context.myUser);
     const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
     const [postsState, dispatchPosts] = useReducer(reducers.courses.updatePosts, context.posts);
     const [reviewsState, dispatchReviews] = useReducer(reducers.courses.updateReviews, context.reviews);

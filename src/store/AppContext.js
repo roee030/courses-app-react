@@ -5,7 +5,8 @@ const all= {
     courses: {},
     posts: {},
     reviews: {},
-    myUser: {}
+    myUser: {},
+    currentCourse: {}
 }
 
 const AppContext = createContext(all);

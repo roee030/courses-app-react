@@ -8,12 +8,11 @@ import RegisterPopUp from './RegisterPopUp';
 import LoginPopUp from './LoginPopUp';
 import ResetPopUp from './ResetPopUp';
 import AppContext from '../store/AppContext';
-import reducers from '../store/reducers';
 import actions from '../store/actions';
 
-export default function Header() {
+export default function Header({ myUser, dispatchMyUser }) {
     const context = useContext(AppContext);
-    const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
+    // const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
     const [popUp, setPopUp] = useState(null);
    
     return (

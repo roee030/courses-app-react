@@ -1,5 +1,5 @@
 import React from 'react';
-import AddReviewButton from './AddReviewButton';
+import AddReviewButton from '../../../components/AddReviewButton';
 
 export default function ReviewsTitle({ isAdmin = false, isParticipate = false, onAddReviewClick }) {
     return (

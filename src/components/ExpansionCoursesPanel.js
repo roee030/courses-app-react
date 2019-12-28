@@ -63,4 +63,8 @@ function createExpansionPanel(title, courses = [], classes) {
     )
 }
 
+function addUserStateField() { //TODO add userState - pending/approved/null
+
+}
+
 export default ExpansionCoursesPanel;
