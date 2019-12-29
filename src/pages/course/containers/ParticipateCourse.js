@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import AppContext from '../../../store/AppContext';
+import React from 'react';
 import MembersGrid from '../../../components/MembersGrid';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
 import PostsArea from '../presentials/PostsArea';
 import ReviewsArea from './ReviewsArea';
 
-export default function ParticipateCourse({ courseId, admins = [],
+export default function ParticipateCourse({ course, 
+                                            admins = [],
                                             participates = [],
                                             subCourses = [],
                                             posts = [],
@@ -14,8 +14,6 @@ export default function ParticipateCourse({ courseId, admins = [],
                                             onRemoveMemberClick,
                                             onAddPostClick,
                                             onAddReviewClick }) {
-    const context = useContext(AppContext);
-    const course = context.courses[courseId];
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
     const toDate = course.dates.to ? new Date(course.dates.to).toDateString() : undefined;
     

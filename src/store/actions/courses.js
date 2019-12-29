@@ -64,7 +64,7 @@ export function addPost(post) {
 }
 
 export function addPosts(posts) {
-    return { type: ACTION_NAMES.ADD_POST, posts };
+    return { type: ACTION_NAMES.ADD_POSTS, posts };
 }
 
 export function addReviewId(courseId, reviewId) {
@@ -80,7 +80,7 @@ export function addReview(review) {
 }
 
 export function addReviews(reviews) {
-    return { type: ACTION_NAMES.ADD_REVIEW, reviews };
+    return { type: ACTION_NAMES.ADD_REVIEWS, reviews };
 }
 
 export function addSubCourseId(courseId, subCourseId) {

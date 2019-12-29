@@ -1,13 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import AppContext from '../../../store/AppContext';
 import MembersGrid from '../../../components/MembersGrid';
 import CoreFileLink from '../presentials/CoreFileLink';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
 import ReviewsArea from './ReviewsArea';
 
-export default function SuperUserCourse({ courseId,
+export default function SuperUserCourse({ course,
                                 admins = [],
                                 participates = [],
                                 subCourses =[],
@@ -16,8 +15,6 @@ export default function SuperUserCourse({ courseId,
                                 onRemoveAdminClick,
                                 onAddAdminClick,
                                 onAddReviewClick }) {
-    const context = useContext(AppContext);
-    const course = context.courses[courseId];
     const courseName = course.name;
     const courseDescription = course.description;
     const coreFileLink = course.coreFile.link;

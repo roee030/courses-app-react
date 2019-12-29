@@ -7,6 +7,9 @@ export default function UseGetCoursesEffect(coursesIds = []) {
   
     useEffect(() => {
         function fetchList() {
+            if (!coursesIds.length)
+                return;
+
             setLoading(true);
 
             serverApi.get('courses/multiple', { coursesIds: coursesIds }, res => {

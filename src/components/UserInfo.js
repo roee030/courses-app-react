@@ -1,9 +1,8 @@
 import React from 'react';
 import { MDBCard, MDBCardTitle, MDBCardText, MDBContainer } from "mdbreact";
 
-function UserInfo(props) {
+function UserInfo({ details = [] }) {
     const title = 'Personal Info';
-    const details = props.details;
 
     return (
         <MDBContainer>
@@ -28,7 +27,7 @@ function renderList(details = []) {
 
 function createGroupItem(title, des) {
     return (
-        <MDBCardText>
+        <MDBCardText key={title}>
             {`${title}:     ${des}`}
         </MDBCardText>
     )

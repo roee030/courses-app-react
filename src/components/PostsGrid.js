@@ -16,7 +16,7 @@ function renderPosts(posts = []) {
     return (
         posts.map((post) => {
             return (
-                <Post content={post.content} />
+                <Post key={post._id} content={post.content} />
             )
         })
     )

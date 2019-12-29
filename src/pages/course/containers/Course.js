@@ -1,8 +1,6 @@
-import React, { useContext, useReducer } from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from 'react';
 import * as serverApi from '../../../helpers/server_api';
 import AppContext from '../../../store/AppContext';
-import reducers from '../../../store/reducers';
 import actions from '../../../store/actions';
 import * as generalUtils from '../../../helpers/general';
 import LoggedOutCourse from './LoggedOutCourse';
@@ -10,75 +8,68 @@ import SuperUserCourse from './SuperUserCourse';
 import AdminCourse from './AdminCourse';
 import ParticipateCourse from './ParticipateCourse';
 import OutsiderCourse from './OutsiderCourse';
+import UseGetCoursesEffect from '../../../hooks/UseGetCoursesEffect';
+import UseGetUsersEffect from '../../../hooks/UseGetUsersEffect';
+import UseGetCoursePostsEffect from '../../../hooks/UseGetCoursePostsEffect';
+import UseGetCourseReviewsEffect from '../../../hooks/UseGetCourseReviewsEffect';
 
-function Course(props) {
+function Course({ match, myUser, users, courses, postsState, reviewsState, dispatchUsers, dispatchCourses, dispatchPosts, dispatchReviews }) {
     const context = useContext(AppContext);
-    const courseId = props.match.params.id;
-    const myUser = props.myUser;
-    
-    const [users, dispatchUsers] = useReducer(reducers.users.updateUsers, context.users);
-    const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
-    const [postsState, dispatchPosts] = useReducer(reducers.courses.updatePosts, context.posts);
-    const [reviewsState, dispatchReviews] = useReducer(reducers.courses.updateReviews, context.reviews);
-    const course = courses[courseId];
-    
-    if (!course) {
-        serverApi.get('courses', { courseId: courseId }, res => { // TODO: add 500 page if failed
-            const data = res ? res.data : undefined;
-            
-            if (data && data.course)
-                dispatchCourses(actions.courses.addCourse(data.course));
-        });
+    const courseId = match.params.id;
+    const [course, setCourse] = useState(courses[courseId]);
 
-        return renderLoadingPage();
-    }
-
-    const adminsIds = course.admins;
-    const participatesIds = course.participates;
-    const pendingRequestsIds = course.pendingRequests;
-    const postsIds = course.posts;
-    const reviewsIds = course.reviews;
-    const subCoursesIds = course.subCourses;
+    const adminsIds = course ? course.admins : [];
+    const participatesIds = course ? course.participates : [];
+    const pendingRequestsIds = course ? course.pendingRequests : [];
+    const subCoursesIds = course ? course.subCourses : [];
 
     const missingAdmins = generalUtils.getUnSavedArrayElements(adminsIds, users);
     const missingParticipates = generalUtils.getUnSavedArrayElements(participatesIds, users);
     const missingPendingRequests = generalUtils.getUnSavedArrayElements(pendingRequestsIds, users);
-    const totalMissingUsers = [...missingAdmins, ...missingParticipates, ...missingPendingRequests];
-    const missingPosts = generalUtils.getUnSavedArrayElements(postsIds, postsState);
-    const missingReviews = generalUtils.getUnSavedArrayElements(reviewsIds, reviewsState);
     const missingCourses = generalUtils.getUnSavedArrayElements(subCoursesIds, courses);
 
-    loadData(courseId, dispatchUsers, dispatchCourses, dispatchPosts, dispatchReviews, totalMissingUsers, missingPosts, missingReviews, missingCourses);
 
-    const subCourses = generalUtils.getValuesFromStateByArray(courses, subCoursesIds);
-    const admins = generalUtils.getValuesFromStateByArray(users, adminsIds);
-    const participates = generalUtils.getValuesFromStateByArray(users, participatesIds);
-    const pendingRequests = generalUtils.getValuesFromStateByArray(users, pendingRequestsIds);
-    const posts = generalUtils.getValuesFromStateByArray(postsState, postsIds);
-    const reviews = generalUtils.getValuesFromStateByArray(reviewsState, reviewsIds);
+    const [subCourses, isSubCoursesLoading] = UseGetCoursesEffect(missingCourses);
+    const [admins, isAdminsLoading] = UseGetUsersEffect(missingAdmins);
+    const [participates, isParticipatesLoading] = UseGetUsersEffect(missingParticipates);
+    const [pendingRequests, isPendingRequestsLoading] = UseGetUsersEffect(missingPendingRequests);
+    const [posts, isPostsLoading] = UseGetCoursePostsEffect(courseId);
+    const [reviews, isReviewsLoading] = UseGetCourseReviewsEffect(courseId);
+    
+    if (!course) {
+        serverApi.get('courses', { courseId: courseId }, res => { // TODO: add 500 page if failed
+            const data = res ? res.data : undefined;
+            console.log('asasasas 2');
+            console.log(data.course);
+            if (data && data.course)
+                setCourse(data.course);
+        });
+
+        return renderLoadingPage();
+    }
 
     const newContext = {...context, users: users, myUser: myUser, courses: courses, posts: posts, reviews};
     return (
         <AppContext.Provider value={newContext}>
             <div>
                 <div>
-                    {renderPage(courseId, myUser, subCourses, admins, participates, pendingRequests, posts, reviews)}
+                    {renderPage(course, myUser, subCourses, admins, participates, pendingRequests, posts, reviews)}
                 </div>
             </div>
         </AppContext.Provider>
     )
 }
 
-function renderPage(courseId, myUser, subCourses, admins, participates, pendingRequests, posts, reviews) {
+function renderPage(course, myUser, subCourses, admins, participates, pendingRequests, posts, reviews) {
     if (!myUser._id) {
         return (
-            <LoggedOutCourse courseId={courseId} subCourses={subCourses} />
+            <LoggedOutCourse course={course} subCourses={subCourses} />
         )
     }
 
     if (myUser.isSuperUser) {
         return (
-            <SuperUserCourse courseId={courseId} 
+            <SuperUserCourse course={course} 
             subCourses={subCourses} 
             admins={admins} 
             participates={participates} 
@@ -89,9 +80,9 @@ function renderPage(courseId, myUser, subCourses, admins, participates, pendingR
             onAddReviewClick={onAddReviewClick} />
         )
     }
-    else if (isAdmin(myUser._id, admins)) {
+    else if (isAdmin(myUser._id, course.admins)) {
         return (
-            <AdminCourse courseId={courseId} 
+            <AdminCourse course={course} 
             subCourses={subCourses} 
             admins={admins} 
             participates={participates} 
@@ -106,9 +97,9 @@ function renderPage(courseId, myUser, subCourses, admins, participates, pendingR
             onRemovePendingClick={onRemovePendingClick} />
         )
     }
-    else if (isParticipate(myUser._id, participates)) {
+    else if (isParticipate(myUser._id, course.participates)) {
         return (
-            <ParticipateCourse courseId={courseId} 
+            <ParticipateCourse course={course} 
             subCourses={subCourses} 
             admins={admins} 
             participates={participates} 
@@ -121,7 +112,7 @@ function renderPage(courseId, myUser, subCourses, admins, participates, pendingR
     }
 
     return (
-        <OutsiderCourse courseId={courseId} subCourses={subCourses} admins={admins} onMemberClick={onMemberClick} />
+        <OutsiderCourse course={course} myUser={myUser} subCourses={subCourses} admins={admins} onMemberClick={onMemberClick} />
     )
 }
 
@@ -133,16 +124,12 @@ function renderLoadingPage() {
     )
 }
 
-function isAdmin(userId, admins = []) {
-    const isAdmin = admins.some((admin) => {
-        return admin._id === userId;
-    });
-
-    return isAdmin;
+function isAdmin(userId, adminsIds = []) {
+    return adminsIds.includes(userId);
 }
 
-function isParticipate(userId, participates = []) {
-    return participates.some(participate => participate._id === userId);
+function isParticipate(userId, participatesIds = []) {
+    return participatesIds.includes(userId);
 }
 
 function onMemberClick() { //TODO: add logic

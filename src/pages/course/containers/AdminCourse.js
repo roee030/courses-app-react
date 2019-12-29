@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import AppContext from '../../../store/AppContext';
+import React from 'react';
 import MembersGrid from '../../../components/MembersGrid';
 import ReviewsArea from './ReviewsArea';
 import DatesOrSubCourses from './DatesOrSubCourses';
@@ -7,7 +6,7 @@ import MainCourseLink from '../presentials/MainCourseLink';
 import CoreFileLink from '../presentials/CoreFileLink';
 import PostsArea from '../presentials/PostsArea';
 
-export default function AdminCourse({ courseId,
+export default function AdminCourse({ course,
                                             subCourses = [],
                                             admins = [],
                                             participates = [],
@@ -20,8 +19,6 @@ export default function AdminCourse({ courseId,
                                             onApprovedPendingRequestClick,
                                             onAddPostClick,
                                             onAddReviewClick }) {
-    const context = useContext(AppContext);
-    const course = context.courses[courseId];
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
     const toDate = course.dates.to ? new Date(course.dates.to).toDateString() : undefined;
     

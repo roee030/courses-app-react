@@ -1,19 +1,12 @@
-import React, { useContext, useReducer } from 'react';
-import AppContext from '../../../store/AppContext';
+import React, { useState } from 'react';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
 import MembersGrid from '../../../components/MembersGrid';
 import CancelOrRequestToJoinButton from '../presentials/CancelOrRequestToJoinButton';
-import reducers from '../../../store/reducers';
-import actions from '../../../store/actions';
 import * as serverApi from '../../../helpers/server_api';
 
-export default function OutsiderCourse({ courseId, subCourses = [], admins = [], onMemberClick }) {
-    const context = useContext(AppContext);
-    const [myUser, dispatchMyUser] = useReducer(reducers.users.updateUsers, context.myUser);
-    const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
-    const course = courses[courseId];
-    const pendingRequestsIds = course.pendingRequests || [];
+export default function OutsiderCourse({ course, myUser, subCourses = [], admins = [], onMemberClick }) {
+    const [pendingRequestsIds, setPendingRequestsIds] = useState(course.pendingRequests || []);
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
     const toDate = course.dates.to ? new Date(course.dates.to).toDateString() : undefined;
 
@@ -52,24 +45,24 @@ export default function OutsiderCourse({ courseId, subCourses = [], admins = [],
         </div>
     )
 
-    function onCancelRequestButtonClick() {
+    function onCancelRequestButtonClick(courseId) {
         serverApi.put('courses/cancelRequest', { courseId: courseId }, res => {
             const data = res ? res.data : undefined;
 
             if (data && data.success) {
-                dispatchCourses(actions.courses.removePendingRequest(courseId, myUser._id));
-                dispatchMyUser(actions.users.addMyParticipatePending(courseId));
+                const newPending =  [...pendingRequestsIds].push(myUser._id);
+                setPendingRequestsIds(newPending);
             }
         });
     }
 
-    function onRequestButtonClick() {
+    function onRequestButtonClick(courseId) {
         serverApi.put('courses/request', { courseId: courseId }, res => {
             const data = res ? res.data : undefined;
 
             if (data && data.success) {
-                dispatchCourses(actions.courses.addPendingRequest(courseId, myUser._id))
-                dispatchMyUser(actions.users.removeMyParticipatePending(courseId));
+                const newPending =  [...pendingRequestsIds].filter(id => id !== myUser._id);
+                setPendingRequestsIds(newPending);
             }
         });
     }

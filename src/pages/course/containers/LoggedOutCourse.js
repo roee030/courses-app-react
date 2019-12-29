@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
-import AppContext from '../../../store/AppContext';
 
-export default function LoggedOutCourse({ courseId, subCourses = [] }) {
-    const context = useContext(AppContext);
-    const course = context.courses[courseId];
+export default function LoggedOutCourse({ course, subCourses = [] }) {
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
     const toDate = course.dates.to ? new Date(course.dates.to).toDateString() : undefined;
 

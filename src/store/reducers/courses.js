@@ -8,7 +8,7 @@ export function updatePosts(currentState, action) {
             return { ...currentState, [action.post._id]: action.post };
         case COURSE_ACTIONS.ADD_POSTS:
             const addPostsObj = {};
-            action.courses.forEach(element => {
+            action.posts.forEach(element => {
                 addPostsObj[element._id] = element;
             });
             return { ...currentState, ...addPostsObj};
@@ -23,7 +23,7 @@ export function updateReviews(currentState, action) {
             return { ...currentState, [action.review._id]: action.review };
         case COURSE_ACTIONS.ADD_REVIEWS:
             const addReviewsObj = {};
-            action.courses.forEach(element => {
+            action.reviews.forEach(element => {
                 addReviewsObj[element._id] = element;
             });
             return { ...currentState, ...addReviewsObj};

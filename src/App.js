@@ -18,28 +18,38 @@ import reducers from './store/reducers';
 function App() {
     const context = useContext(AppContext);
     const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
+    const [users, dispatchUsers] = useReducer(reducers.users.updateUsers, context.users);
+    const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
+    const [postsState, dispatchPosts] = useReducer(reducers.courses.updatePosts, context.posts);
+    const [reviewsState, dispatchReviews] = useReducer(reducers.courses.updateReviews, context.reviews);
     return (
     <div>
-      <AppContext.Provider value={context}>
-
-      <Header myUser={myUser} dispatchMyUser={dispatchMyUser} />
-      <MDBContainer fluid>   
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/users/:id" render={(props) => <User {...props} myUser={myUser} />}/>
-        <Route exact path='/courses/:id' render={(props) => <Course {...props} myUser={myUser} />} />
-        {/* <Route exact path="/log-in" component={Signin}/> */}
-        {/* <Route exact path="/register" component={Register}/> */}
-        <Route exact path="/resetpassword" component={ResetPassword}/>
-
-        <Route component={ErrorPage}/>
-      </Switch>
-      
-      </MDBContainer>
-      
-      <Footer/>
-    </AppContext.Provider>
-
+        <AppContext.Provider value={context}>
+            <Header myUser={myUser} dispatchMyUser={dispatchMyUser} />
+            <MDBContainer fluid>   
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/users/:id" render={(props) => <User {...props} 
+                        myUser={myUser}
+                        users={users}
+                        courses={courses}
+                        dispatchCourses={dispatchCourses} />}/>
+                    <Route exact path='/courses/:id' render={(props) => <Course {...props} 
+                        myUser={myUser}
+                        users={users}
+                        courses={courses}
+                        postsState={postsState}
+                        reviewsState={reviewsState} 
+                        dispatchUsers={dispatchUsers} 
+                        dispatchCourses={dispatchCourses}
+                        dispatchPosts={dispatchPosts}
+                        dispatchReviews={dispatchReviews} />} />
+                    <Route exact path="/resetpassword" component={ResetPassword}/>
+                    <Route component={ErrorPage}/>
+                </Switch>      
+            </MDBContainer>
+            <Footer/>
+        </AppContext.Provider>
     </div>
   );
 }
