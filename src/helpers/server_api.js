@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let accesToken = null;
+let accesToken = localStorage.getItem('token') || null;
 const serverUrl = 'http://localhost:3010/';
 
 export async function post(serverModule, body, callback) {
@@ -16,11 +16,9 @@ export async function get(serverModule, qs, callback) {
 }
 
 export function logOut() {
+    localStorage.setItem('token', undefined);
+    localStorage.setItem('myUser', '{}');
     accesToken = null;
-}
-
-export function isLoggedIn() {
-    return accesToken;   
 }
 
 async function request(type, serverModule, args, callback) {
@@ -68,6 +66,8 @@ function buildQueryStrings(args) {
 }
 
 function checkHeaderAndSaveAccesToken(response) {
-    if (response && response.headers && response.headers.authorization)
+    if (response && response.headers && response.headers.authorization) {
+        localStorage.setItem('token', response.headers.authorization);
         accesToken = response.headers.authorization;
+    }
 }

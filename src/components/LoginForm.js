@@ -57,6 +57,8 @@ export default function LoginForm({ dispatchMyUser, setPopUp }) {
             const data = res ? res.data : undefined;
             
             if (data && data.user) {
+                localStorage.setItem('myUser', JSON.stringify(data.user));
+                
                 dispatchMyUser(actions.users.addMyUser(data.user));
                 setPopUp(null);
             }

@@ -7,12 +7,17 @@ import { MDBNavbar, MDBBtn } from "mdbreact";
 import RegisterPopUp from './RegisterPopUp';
 import LoginPopUp from './LoginPopUp';
 import ResetPopUp from './ResetPopUp';
-import AppContext from '../store/AppContext';
 import actions from '../store/actions';
+import * as serverApi from '../helpers/server_api';
 
 export default function Header({ myUser, dispatchMyUser }) {
-    const context = useContext(AppContext);
-    // const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
+    const localStorageUserString = localStorage.getItem('myUser');
+
+    const localStorageUser = localStorageUserString ? JSON.parse(localStorageUserString) : {};
+
+    if (localStorageUser && localStorageUser._id && !myUser._id)
+        dispatchMyUser(actions.users.addMyUser(localStorageUser));
+    
     const [popUp, setPopUp] = useState(null);
    
     return (
@@ -29,9 +34,8 @@ export default function Header({ myUser, dispatchMyUser }) {
             return (
                 <div>
                     <Link to={`/users/${myUser._id}`}> My Account</Link>
-                    <MDBBtn onClick={() => {dispatchMyUser(actions.users.addMyUser({}))}}>Log-out</MDBBtn>
-                </div>
-                
+                    <MDBBtn onClick={() => logout(dispatchMyUser)}>Log-out</MDBBtn>
+                </div>                
             )
         }
     
@@ -43,6 +47,11 @@ export default function Header({ myUser, dispatchMyUser }) {
             
         )
     }
+}
+
+function logout(dispatchMyUser) {
+    dispatchMyUser(actions.users.addMyUser({}));
+    serverApi.logOut();
 }
 
 function renderPopUp(popUp, setPopUp, dispatchMyUser) {

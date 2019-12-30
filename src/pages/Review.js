@@ -28,7 +28,6 @@ function renderMyUser() {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
@@ -63,7 +62,6 @@ function renderMyPupil() {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
@@ -97,7 +95,6 @@ function renderAnyUser() {
 
     return (
         <div>
-            <Header isLoggedIn={true}/>
             <div>
                 <UserInfo />
                 <ExpansionCoursesPanel expansions={courses}/>
