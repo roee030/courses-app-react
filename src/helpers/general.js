@@ -17,9 +17,6 @@ export function getValuesFromStateByArray(state = {}, array = []) {
 }
 
 export function getCourses(coursesIds = [], courses, dispatchCourses) {
-    console.log('popopopo 1');
-    console.log(courses);
-    
     const notExistsCoursesIds = [];
     const existsCourses = [];
     coursesIds.forEach(courseId => { 
@@ -28,8 +25,7 @@ export function getCourses(coursesIds = [], courses, dispatchCourses) {
 
         notExistsCoursesIds.push(courseId);
     });
-    console.log('popopopo 2');
-    console.log(notExistsCoursesIds.length);
+    
     if (notExistsCoursesIds.length) {
         serverApi.get('courses/multiple', { coursesIds: notExistsCoursesIds }, res => {
             const data = res ? res.data : undefined;

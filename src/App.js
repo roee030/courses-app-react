@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Header from './components/Header';
 import Home from './pages/Home';
 import User from './pages/user/containers/User';
-// import Signin from './components';
-// import Register from './pages/Register';
 import ErrorPage from './components/ErrorPage';
 import Course from './pages/course/containers/Course';
 import './App.css';
@@ -20,8 +18,6 @@ function App() {
     const [myUser, dispatchMyUser] = useReducer(reducers.users.updateMyUser, context.myUser);
     const [users, dispatchUsers] = useReducer(reducers.users.updateUsers, context.users);
     const [courses, dispatchCourses] = useReducer(reducers.courses.updateCourses, context.courses);
-    const [postsState, dispatchPosts] = useReducer(reducers.courses.updatePosts, context.posts);
-    const [reviewsState, dispatchReviews] = useReducer(reducers.courses.updateReviews, context.reviews);
     return (
     <div>
         <AppContext.Provider value={context}>
@@ -37,13 +33,7 @@ function App() {
                     <Route exact path='/courses/:id' render={(props) => <Course {...props} 
                         myUser={myUser}
                         users={users}
-                        courses={courses}
-                        postsState={postsState}
-                        reviewsState={reviewsState} 
-                        dispatchUsers={dispatchUsers} 
-                        dispatchCourses={dispatchCourses}
-                        dispatchPosts={dispatchPosts}
-                        dispatchReviews={dispatchReviews} />} />
+                        courses={courses} />} />
                     <Route exact path="/resetpassword" component={ResetPassword}/>
                     <Route component={ErrorPage}/>
                 </Switch>      
