@@ -17,7 +17,6 @@ export function updateMyUser(currentState, action) {
         default:
             throw 'wrong action type';
     }
-
 }
 
 export function updateUsers(currentState, action) {

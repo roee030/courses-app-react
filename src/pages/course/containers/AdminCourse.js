@@ -13,7 +13,6 @@ export default function AdminCourse({ course,
                                             pendingRequests = [],
                                             posts = [],
                                             reviews = [],
-                                            onMemberClick,
                                             onRemoveMemberClick,
                                             onRemovePendingClick,
                                             onApprovedPendingRequestClick,
@@ -27,20 +26,17 @@ export default function AdminCourse({ course,
         isRemoveEnabled: false,
         isAddEnabled: false,
         list: admins,
-        memberFunc: onMemberClick
     }, {
         title: 'participates',
         isRemoveEnabled: true,
         isAddEnabled: false,
         list: participates,
-        memberFunc: onMemberClick,
         removeFunc: onRemoveMemberClick
     }, {
         title: 'pending requests',
         isRemoveEnabled: true,
         isAddEnabled: true,
         list: pendingRequests,
-        memberFunc: onMemberClick,
         removeFunc: onRemovePendingClick,
         addFunc: onApprovedPendingRequestClick
     }];

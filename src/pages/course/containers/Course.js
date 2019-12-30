@@ -37,7 +37,18 @@ function Course({ match, myUser, users, courses }) {
         <AppContext.Provider value={newContext}>
             <div>
                 <div>
-                    {renderPage(course, myUser, subCourses, admins, participates, pendingRequests, posts, reviews)}
+                    {renderPage(course,
+                        setCourse,
+                        myUser,
+                        subCourses,
+                        admins,
+                        setAdmins,
+                        participates,
+                        setParticipates,
+                        pendingRequests,
+                        setPendingRequests,
+                        posts,
+                        reviews)}
                 </div>
             </div>
         </AppContext.Provider>
@@ -106,7 +117,18 @@ function getReviews(setReviews, courseId) {
     });
 }
 
-function renderPage(course, myUser, subCourses, admins, participates, pendingRequests, posts, reviews) {
+function renderPage(course,
+    setCourse,
+    myUser,
+    subCourses,
+    admins,
+    setAdmins,
+    participates,
+    setParticipates,
+    pendingRequests,
+    setPendingRequests,
+    posts,
+    reviews) {
     if (!myUser._id) {
         return (
             <LoggedOutCourse course={course} subCourses={subCourses} />
@@ -116,49 +138,45 @@ function renderPage(course, myUser, subCourses, admins, participates, pendingReq
     if (myUser.isSuperUser) {
         return (
             <SuperUserCourse course={course} 
-            subCourses={subCourses} 
-            admins={admins} 
-            participates={participates} 
-            reviews={reviews} 
-            onAddAdminClick={onAddAdminClick} 
-            onMemberClick={onMemberClick} 
-            onRemoveAdminClick={onRemoveAdminClick} 
-            onAddReviewClick={onAddReviewClick} />
+                subCourses={subCourses} 
+                admins={admins} 
+                participates={participates} 
+                reviews={reviews} 
+                onAddAdminClick={onAddAdminClick} 
+                onRemoveAdminClick={memberId => { onRemoveAdminClick(memberId, course, setCourse, admins, setAdmins)}} 
+                onAddReviewClick={onAddReviewClick} />
         )
     }
     else if (isAdmin(myUser._id, course.admins)) {
         return (
             <AdminCourse course={course} 
-            subCourses={subCourses} 
-            admins={admins} 
-            participates={participates} 
-            posts={posts} 
-            reviews={reviews} 
-            pendingRequests={pendingRequests} 
-            onMemberClick={onMemberClick} 
-            onApprovedPendingRequestClick={onApprovedPendingRequestClick} 
-            onAddPostClick={onAddPostClick} 
-            onAddReviewClick={onAddReviewClick} 
-            onRemoveMemberClick={onRemoveMemberClick} 
-            onRemovePendingClick={onRemovePendingClick} />
+                subCourses={subCourses} 
+                admins={admins} 
+                participates={participates} 
+                posts={posts} 
+                reviews={reviews} 
+                pendingRequests={pendingRequests} 
+                onApprovedPendingRequestClick={memberId => { onApprovedPendingRequestClick(memberId, course, setCourse, pendingRequests, setPendingRequests, participates, setParticipates)}} 
+                onAddPostClick={onAddPostClick} 
+                onAddReviewClick={onAddReviewClick} 
+                onRemoveMemberClick={memberId => { onRemoveMemberClick(memberId, course, setCourse, participates, setParticipates)}} 
+                onRemovePendingClick={memberId => { onRemovePendingClick(memberId, course, setCourse, pendingRequests, setPendingRequests)}} />
         )
     }
     else if (isParticipate(myUser._id, course.participates)) {
         return (
             <ParticipateCourse course={course} 
-            subCourses={subCourses} 
-            admins={admins} 
-            participates={participates} 
-            posts={posts} 
-            onMemberClick={onMemberClick} 
-            onRemoveMemberClick={onRemoveMemberClick} 
-            onAddPostClick={onAddPostClick} 
-            onAddReviewClick={onAddReviewClick}/>
+                subCourses={subCourses} 
+                admins={admins} 
+                participates={participates} 
+                posts={posts} 
+                onAddPostClick={onAddPostClick} 
+                onAddReviewClick={onAddReviewClick}/>
         )
     }
 
     return (
-        <OutsiderCourse course={course} myUser={myUser} subCourses={subCourses} admins={admins} onMemberClick={onMemberClick} />
+        <OutsiderCourse course={course} myUser={myUser} subCourses={subCourses} admins={admins} />
     )
 }
 
@@ -178,28 +196,59 @@ function isParticipate(userId, participatesIds = []) {
     return participatesIds.includes(userId);
 }
 
-function onMemberClick() { //TODO: add logic
+function onRemoveMemberClick(pupilId, course, setCourse, participates, setParticipates) {
+    serverApi.put('courses/removeParticipate', { courseId: course._id, pupilId: pupilId }, () => {});
 
+    const newParticipates = participates.filter(participate => participate._id !== pupilId);
+    setParticipates(newParticipates);
+    const newCourse = {...course};
+    newCourse.participates = newCourse.participates.filter(participateId => participateId !== pupilId);
+    setCourse(newCourse);
 }
 
-function onRemoveMemberClick() { //TODO: add logic
+function onRemovePendingClick(pupilId, course, setCourse, pendingRequests, setPendingRequests) {
+    serverApi.put('courses/declineParticipate', { courseId: course._id, pupilId: pupilId }, () => {});
 
+    const newPendingRequests = pendingRequests.filter(pending => pending._id !== pupilId);
+    setPendingRequests(newPendingRequests);
+    const newCourse = {...course};
+    newCourse.pendingRequests = newCourse.pendingRequests.filter(pendingId => pendingId !== pupilId);
+    setCourse(newCourse);
 }
 
-function onRemovePendingClick() { //TODO: add logic
+function onRemoveAdminClick(adminId, course, setCourse, admins, setAdmins) {
+    serverApi.put('courses/removeAdmin', { courseId: course._id, recipientId: adminId }, () => {});
 
-}
-
-function onRemoveAdminClick() { //TODO: add logic
-
+    const newAdmins = admins.filter(admin => admin._id !== adminId);
+    setAdmins(newAdmins);
+    const newCourse = {...course};
+    newCourse.admins = newCourse.admins.filter(userId => userId !== adminId);
+    setCourse(newCourse);
 }
 
 function onAddAdminClick() { //TODO: add logic
 
 }
 
-function onApprovedPendingRequestClick() { //TODO: add logic
-    
+function onApprovedPendingRequestClick(pupilId, course, setCourse, pendingRequests, setPendingRequests, participates, setParticipates) { //TODO: add logic
+    serverApi.put('courses/approveParticipate', { courseId: course._id, pupilId: pupilId }, () => {});
+
+    let formerPending;
+    const newPendingRequests = pendingRequests.filter(pending => {
+        if (pending._id === pupilId) {
+            formerPending = pending;
+            return false;
+        }
+
+        return true;
+    });
+    setPendingRequests(newPendingRequests);
+    const newParticipates = [...participates].push(formerPending);
+    setParticipates(newParticipates);
+    const newCourse = {...course};
+    newCourse.pendingRequests = newCourse.pendingRequests.filter(userId => userId !== pupilId);
+    newCourse.participates = newCourse.participates.push(pupilId);
+    setCourse(newCourse);
 }
 
 function onAddPostClick() { //TODO: add logic
@@ -208,44 +257,6 @@ function onAddPostClick() { //TODO: add logic
 
 function onAddReviewClick() { //TODO: add logic
 
-}
-
-function loadData(courseId, dispatchUsers, dispatchCourses, dispatchPosts, dispatchReviews,  totalMissingUsers = [], missingPosts = [], missingReviews = [], missingCourses = []) {
-    if (totalMissingUsers.length > 0) {
-        serverApi.get('users/multiple', { usersIds: totalMissingUsers }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.users)
-                dispatchUsers(actions.users.addUsers(data.users));
-        });
-    }
-
-    if (missingPosts.length > 0) {
-        serverApi.get('courses/posts', { courseId: courseId }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.posts)
-                dispatchPosts(actions.courses.addPosts(data.posts));
-        });
-    }
-
-    if (missingReviews.length > 0) {
-        serverApi.get('courses/reviews', { courseId: courseId }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.reviews)
-                dispatchReviews(actions.courses.addReviews(data.reviews));
-        });
-    }
-
-    if (missingCourses.length > 0) {
-        serverApi.get('courses/multiple', { coursesIds: missingCourses }, res => {
-            const data = res ? res.data : undefined;
-
-            if (data && data.courses)
-                dispatchCourses(actions.courses.addCourses(data.courses));
-        });
-    }
 }
 
 export default Course;

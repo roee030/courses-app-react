@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 import MembersLists from '../components/MembersList';
 
-// members example = [{ title: 'example', isRemoveEnabled: true/false, list: [], removeFunc: Function, memberFunc: Function }]
+// members example = [{ title: 'example', isRemoveEnabled: true/false, list: [], removeFunc: Function }]
 function MembersGrid(props) {
     const members = props.members || [];
     const useStyles = makeStyles(theme => ({
@@ -38,16 +38,16 @@ function renderTitlesAndLists(members = [], classes) {
             return (
                 <div key={`member-${i}`}>
                     {renderTitle(membersListObj.title, classes)}
-                    {renderList(membersListObj.isRemoveEnabled, membersListObj.list, membersListObj.removeFunc, membersListObj.memberFunc)}
+                    {renderList(membersListObj.isAddEnabled, membersListObj.addFunc, membersListObj.isRemoveEnabled, membersListObj.removeFunc, membersListObj.list)}
                 </div>                
             )
         })
     )
 }
 
-function renderList(isRemoveEnabled, list, removeFunc, memberFunc) {
+function renderList(isAddEnabled, addFunc, isRemoveEnabled, removeFunc, list) {
     return (
-        <MembersLists isRemoveEnabled={isRemoveEnabled} list={list} removeFunc={removeFunc} memberFunc={memberFunc}/>
+        <MembersLists addFunc={addFunc} isAddEnabled={isAddEnabled} isRemoveEnabled={isRemoveEnabled} list={list} removeFunc={removeFunc} />
     )
 }
 

@@ -10,8 +10,6 @@ export default function ParticipateCourse({ course,
                                             participates = [],
                                             subCourses = [],
                                             posts = [],
-                                            onMemberClick,
-                                            onRemoveMemberClick,
                                             onAddPostClick,
                                             onAddReviewClick }) {
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
@@ -21,15 +19,12 @@ export default function ParticipateCourse({ course,
         title: 'admins',
         isRemoveEnabled: false,
         isAddEnabled: false,
-        list: admins,
-        memberFunc: onMemberClick
+        list: admins
     }, {
         title: 'participates',
         isRemoveEnabled: false,
         isAddEnabled: false,
-        list: participates,
-        memberFunc: onMemberClick,
-        removeFunc: onRemoveMemberClick
+        list: participates
     }];
 
     return (

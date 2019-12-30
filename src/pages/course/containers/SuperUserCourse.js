@@ -11,7 +11,6 @@ export default function SuperUserCourse({ course,
                                 participates = [],
                                 subCourses =[],
                                 reviews = [],
-                                onMemberClick,
                                 onRemoveAdminClick,
                                 onAddAdminClick,
                                 onAddReviewClick }) {
@@ -27,14 +26,12 @@ export default function SuperUserCourse({ course,
         isRemoveEnabled: true,
         isAddEnabled: false,
         list: admins,
-        memberFunc: onMemberClick,
         removeFunc: onRemoveAdminClick
     }, {
         title: 'participates',
         isRemoveEnabled: false,
         isAddEnabled: false,
-        list: participates,
-        memberFunc: onMemberClick
+        list: participates
     }];
 
     return (

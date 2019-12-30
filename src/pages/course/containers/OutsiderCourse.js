@@ -5,7 +5,7 @@ import MembersGrid from '../../../components/MembersGrid';
 import CancelOrRequestToJoinButton from '../presentials/CancelOrRequestToJoinButton';
 import * as serverApi from '../../../helpers/server_api';
 
-export default function OutsiderCourse({ course, myUser, subCourses = [], admins = [], onMemberClick }) {
+export default function OutsiderCourse({ course, myUser, subCourses = [], admins = [] }) {
     const [pendingRequestsIds, setPendingRequestsIds] = useState(course.pendingRequests || []);
     const fromDate = course.dates.from ? new Date(course.dates.from).toDateString() : undefined;
     const toDate = course.dates.to ? new Date(course.dates.to).toDateString() : undefined;
@@ -16,8 +16,7 @@ export default function OutsiderCourse({ course, myUser, subCourses = [], admins
         title: 'admins',
         isRemoveEnabled: false,
         isAddEnabled: false,
-        list: admins,
-        memberFunc: onMemberClick
+        list: admins
     }];
 
     return (    
