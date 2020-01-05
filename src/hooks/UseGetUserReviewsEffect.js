@@ -13,7 +13,7 @@ export default function UseGetUserReviewsEffect(courseId, pupilId) {
                 const data = res ? res.data : undefined;
             
                 if (data && data.reviews)
-                    setResult(data.user);
+                    setResult(data.reviews);
             });
         }
 

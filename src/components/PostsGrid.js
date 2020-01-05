@@ -2,12 +2,13 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Post from '../components/Post';
 
-function PostsGrid(props) {
-    const posts = props.posts || [];
+function PostsGrid({ posts = [] }) {
+    const revesedPosts = [...posts]
+    revesedPosts.reverse();
     
     return (
         <Grid container direction='column' justify='space-evenly' alignItems='center'>
-            {renderPosts(posts)}
+            {renderPosts(revesedPosts)}
         </Grid>
     )
 }

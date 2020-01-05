@@ -39,11 +39,17 @@ async function request(type, serverModule, args, callback) {
 
         }
         checkHeaderAndSaveAccesToken(res);
+        checkResponse(res.data);
         callback(res.data);
     }
     catch (error) {
         console.log(`network error - ${error}`);
     }
+}
+
+function checkResponse(res) {
+    if (res.errorCode && (res.errorCode === 'invalidAccessToken' || res.errorCode === 'expiredAccessToken'))
+        logOut();
 }
 
 function buildTokenHeader() {

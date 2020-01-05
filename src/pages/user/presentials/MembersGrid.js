@@ -3,11 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 
-import MembersLists from '../components/MembersList';
+import MembersLists from '../../../components/MembersList';
 
 // members example = [{ title: 'example', isRemoveEnabled: true/false, list: [], removeFunc: Function }]
-function MembersGrid(props) {
-    const members = props.members || [];
+function MembersGrid({ members = [] }) {
     const useStyles = makeStyles(theme => ({
         root: {
           flexGrow: 1,

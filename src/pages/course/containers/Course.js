@@ -7,6 +7,9 @@ import SuperUserCourse from './SuperUserCourse';
 import AdminCourse from './AdminCourse';
 import ParticipateCourse from './ParticipateCourse';
 import OutsiderCourse from './OutsiderCourse';
+import PostPopUp from '../presentials/PostPopUp';
+import ReviewPopUp from '../presentials/ReviewPopUp';
+import AddAdminPopUp from '../presentials/AddAdminPopUp';
 
 function Course({ match, myUser, users, courses }) {
     const context = useContext(AppContext);
@@ -18,6 +21,7 @@ function Course({ match, myUser, users, courses }) {
     const [pendingRequests, setPendingRequests] = useState([]);
     const [posts, setPosts] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [popUp, setPopUp] = useState(null);
 
     if (!course) {
         serverApi.get('courses', { courseId: courseId }, res => { // TODO: add 500 page if failed
@@ -48,7 +52,11 @@ function Course({ match, myUser, users, courses }) {
                         pendingRequests,
                         setPendingRequests,
                         posts,
-                        reviews)}
+                        reviews,
+                        setPopUp)}
+                </div>
+                <div>
+                    {renderPopUp(course, setCourse, posts, setPosts, reviews, setReviews, popUp, setPopUp)}
                 </div>
             </div>
         </AppContext.Provider>
@@ -102,7 +110,7 @@ function getUsers(setUsers, usersIds = []) {
 function getPosts(setPosts, courseId) {
     serverApi.get('courses/posts', { courseId: courseId }, res => {
         const data = res ? res.data : undefined;
-    
+
         if (data && data.posts)
             setPosts(data.posts);
     });
@@ -128,7 +136,8 @@ function renderPage(course,
     pendingRequests,
     setPendingRequests,
     posts,
-    reviews) {
+    reviews,
+    setPopUp) {
     if (!myUser._id) {
         return (
             <LoggedOutCourse course={course} subCourses={subCourses} />
@@ -142,7 +151,7 @@ function renderPage(course,
                 admins={admins} 
                 participates={participates} 
                 reviews={reviews} 
-                onAddAdminClick={onAddAdminClick} 
+                onAddAdminClick={() => { onAddAdminClick()}} 
                 onRemoveAdminClick={memberId => { onRemoveAdminClick(memberId, course, setCourse, admins, setAdmins)}} 
                 onAddReviewClick={onAddReviewClick} />
         )
@@ -157,8 +166,8 @@ function renderPage(course,
                 reviews={reviews} 
                 pendingRequests={pendingRequests} 
                 onApprovedPendingRequestClick={memberId => { onApprovedPendingRequestClick(memberId, course, setCourse, pendingRequests, setPendingRequests, participates, setParticipates)}} 
-                onAddPostClick={onAddPostClick} 
-                onAddReviewClick={onAddReviewClick} 
+                onAddPostClick={() => { onAddPostClick(setPopUp)}} 
+                onAddReviewClick={() => { onAddReviewClick(setPopUp)}} 
                 onRemoveMemberClick={memberId => { onRemoveMemberClick(memberId, course, setCourse, participates, setParticipates)}} 
                 onRemovePendingClick={memberId => { onRemovePendingClick(memberId, course, setCourse, pendingRequests, setPendingRequests)}} />
         )
@@ -230,7 +239,7 @@ function onAddAdminClick() { //TODO: add logic
 
 }
 
-function onApprovedPendingRequestClick(pupilId, course, setCourse, pendingRequests, setPendingRequests, participates, setParticipates) { //TODO: add logic
+function onApprovedPendingRequestClick(pupilId, course, setCourse, pendingRequests, setPendingRequests, participates, setParticipates) {
     serverApi.put('courses/approveParticipate', { courseId: course._id, pupilId: pupilId }, () => {});
 
     let formerPending;
@@ -243,7 +252,8 @@ function onApprovedPendingRequestClick(pupilId, course, setCourse, pendingReques
         return true;
     });
     setPendingRequests(newPendingRequests);
-    const newParticipates = [...participates].push(formerPending);
+    const newParticipates = [...participates];
+    newParticipates.push(formerPending);
     setParticipates(newParticipates);
     const newCourse = {...course};
     newCourse.pendingRequests = newCourse.pendingRequests.filter(userId => userId !== pupilId);
@@ -251,12 +261,43 @@ function onApprovedPendingRequestClick(pupilId, course, setCourse, pendingReques
     setCourse(newCourse);
 }
 
-function onAddPostClick() { //TODO: add logic
-
+function onAddPostClick(setPopUp) { //TODO: add logic
+    setPopUp('addPost');
 }
 
-function onAddReviewClick() { //TODO: add logic
-
+function onAddReviewClick(setPopUp) { //TODO: add logic
+    setPopUp('addReview');
 }
+
+function renderPopUp(course,
+                    setCourse,
+                    posts,
+                    setPosts,
+                    reviews,
+                    setReviews,
+                    popUp,
+                    setPopUp) {
+    if(popUp === "addPost")
+    {
+        return(
+            <PostPopUp course={course} setCourse={setCourse} posts={posts} setPosts={setPosts} setPopUp={setPopUp} />
+        )
+    }
+    else if ( popUp === "addReview")
+    {
+        return(
+            <ReviewPopUp course={course} setCourse={setCourse} reviews={reviews} setReviews={setReviews} setPopUp={setPopUp} />
+        )
+    }
+    else if (popUp === "addAdmin")
+    {
+        return(
+            <AddAdminPopUp />
+        )
+    }
+
+    return (null);
+}
+
 
 export default Course;

@@ -1,6 +1,6 @@
 import React from 'react';
 import UserInfo from '../../../components/UserInfo';
-import ExpansionCoursesPanel from '../../../components/ExpansionCoursesPanel';
+import ExpansionCoursesPanel from '../presentials/ExpansionCoursesPanel';
 import UseGetCoursesEffect from '../../../hooks/UseGetCoursesEffect';
 
 export default function AnyUser({ showingUser }) {
@@ -16,10 +16,25 @@ export default function AnyUser({ showingUser }) {
         }
     };
 
+    const details = [
+        {
+            title: 'שם',
+            description: showingUser.name
+        },
+        {
+            title: 'מספר אישי',
+            description: showingUser.personalNumber
+        },
+        {
+            title: 'מספר טלפון',
+            description: showingUser.phoneNumber
+        }
+    ];
+
     return (
         <div>
             <div>
-                <UserInfo />
+                <UserInfo details={details} />
                 <ExpansionCoursesPanel expansions={expansionCourses}/>
             </div>
         </div>

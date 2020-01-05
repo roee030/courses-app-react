@@ -1,5 +1,5 @@
 import React from 'react';
-import MembersGrid from '../../../components/MembersGrid';
+import MembersGrid from '../../user/presentials/MembersGrid';
 import ReviewsArea from './ReviewsArea';
 import DatesOrSubCourses from './DatesOrSubCourses';
 import MainCourseLink from '../presentials/MainCourseLink';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
-import MembersGrid from '../../../components/MembersGrid';
+import MembersGrid from '../../user/presentials/MembersGrid';
 import CancelOrRequestToJoinButton from '../presentials/CancelOrRequestToJoinButton';
 import * as serverApi from '../../../helpers/server_api';
 

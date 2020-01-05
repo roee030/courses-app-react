@@ -1,7 +1,7 @@
 import React from 'react';
 import UserInfo from '../../../components/UserInfo';
-import ExpansionCoursesPanel from '../../../components/ExpansionCoursesPanel';
-import ExpansionReviewsPanel from '../../../components/ExpansionReviewsPanel';
+import ExpansionCoursesPanel from '../presentials/ExpansionCoursesPanel';
+import ExpansionReviewsPanel from '../presentials/ExpansionReviewsPanel';
 import UseGetCoursesEffect from '../../../hooks/UseGetCoursesEffect';
 import UseGetMyReviewsEffect from '../../../hooks/UseGetMyReviewsEffect';
 
@@ -36,7 +36,7 @@ export default function MyUser({ myUser }) {
             title: 'מספר טלפון',
             description: myUser.phoneNumber
         }
-    ]
+    ];
 
     return (
         <div>

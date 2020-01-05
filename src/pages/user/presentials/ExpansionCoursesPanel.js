@@ -1,5 +1,5 @@
 import React from 'react'
-import CoursesGrid from './CoursesGrid';
+import CoursesGrid from '../../../components/CoursesGrid';
 
 // material ui libraries
 import { makeStyles } from '@material-ui/styles';

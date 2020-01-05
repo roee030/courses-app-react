@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ExpansionCoursesPanel from '../../../components/ExpansionCoursesPanel';
-import ExpansionReviewsPanel from '../../../components/ExpansionReviewsPanel';
+import ExpansionCoursesPanel from '../presentials/ExpansionCoursesPanel';
+import ExpansionReviewsPanel from '../presentials/ExpansionReviewsPanel';
 import AddReviewButton from '../../../components/AddReviewButton';
 import MyUser from './MyUser';
 import MyPupil from './MyPupil';

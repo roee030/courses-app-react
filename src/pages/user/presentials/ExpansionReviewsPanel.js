@@ -1,5 +1,5 @@
 import React from 'react'
-import ReviewsGrid from './ReviewsGrid';
+import ReviewsGrid from '../../../components/ReviewsGrid';
 
 // material ui libraries
 import { makeStyles } from '@material-ui/styles';

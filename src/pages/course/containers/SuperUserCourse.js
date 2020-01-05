@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import MembersGrid from '../../../components/MembersGrid';
+import MembersGrid from '../../user/presentials/MembersGrid';
 import CoreFileLink from '../presentials/CoreFileLink';
 import MainCourseLink from '../presentials/MainCourseLink';
 import DatesOrSubCourses from './DatesOrSubCourses';
